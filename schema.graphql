@@ -1,6 +1,157 @@
-type ExampleEntity @entity {
+# contracts
+
+type PairFactory @entity {
+  # factory address
   id: ID!
-  count: BigInt!
-  exchangeAddress: Bytes! # address
-  cryptomediaAddress: Bytes! # address
+
+  # volume stats
+  totalVolumeETH: BigDecimal!
+  cryptomediaCount: BigInt!
+  txCount: BigInt!
+}
+
+type Exchange @entity {
+  # address
+  id: ID!
+
+  # mirrored from smart contract
+  name: String!
+  symbol: String!
+  deployer: Bytes!
+  creator: Bytes!
+  poolBalance: BigDecimal!
+  totalSupply: BigDecimal!
+  reserveRatio: BigInt!
+
+  # token price
+  tokenPrice: BigDecimal!
+
+  # market cap
+  marketCap: BigDecimal!
+
+  # lifetime volume stats
+  volumeETH: BigDecimal!
+  txCount: BigInt!
+
+  # derived fields
+  positions: [Position!]! @derivedFrom(field: "exchange")
+  buys: [Buy!]! @derivedFrom(field: "exchange")
+  sells: [Sell!]! @derivedFrom(field: "exchange")
+  exchangeHourData: [CryptomediaHourData!]! @derivedFrom(field: "exchange")
+  exchangeDayData: [CryptomediaDayData!]! @derivedFrom(field: "exchange")
+}
+
+type Cryptomedia @entity {
+  # address
+  id: ID!
+
+  # mirrored from smart contract
+  name: String!
+  symbol: String!
+  deployer: Bytes!
+  creator: Bytes!
+  tokenURI: String!
+
+  # lifetime volume stats
+  redeemed: BigInt!
+  txCount: BigInt!
+
+  # derived fields
+  owners: [Position!]! @derivedFrom(field: "cryptomedia")
+  redemptions: [Redeem!]! @derivedFrom(field: "cryptomedia")
+}
+
+# interactions
+
+type User @entity {
+  id: ID!
+  positions: [Position!]! @derivedFrom(field: "user")
+  holds: [Hold!]! @derivedFrom(field: "user")
+}
+
+type Position @entity {
+  # id will be combination of user - exchange
+  id: ID!
+  user: User!
+  exchange: Exchange!
+  balance: BigDecimal!
+}
+
+type Hold @entity {
+  # id will be combination of user - cryptomedia
+  id: ID!
+  user: User!
+  cryptomedia: Cryptomedia!
+  balance: BigDecimal!
+}
+
+# events
+
+type Redeem @entity {
+  id: ID! # txn hash
+  blockNumber: BigInt!
+  timestamp: BigInt!
+  redeemer: Bytes!
+}
+
+type Buy @entity {
+  id: ID! # txn hash
+  blockNumber: BigInt!
+  timestamp: BigInt!
+  exchange: Exchange!
+  amount: BigDecimal!
+  price: BigDecimal!
+  buyer: Bytes!
+}
+
+type Sell @entity {
+  id: ID! # txn hash
+  blockNumber: BigInt!
+  timestamp: BigInt!
+  exchange: Exchange!
+  amount: BigDecimal!
+  price: BigDecimal!
+  seller: Bytes!
+}
+
+# Data accumulated and condensed into stats for all of Verse
+
+type VerseDayData @entity {
+  id: ID! # timestamp rounded to current day by dividing by 86400
+  date: Int!
+
+  # volume stats
+  dailyVolumeETH: BigDecimal!
+  totalVolumeETH: BigDecimal!
+  txCount: BigInt!
+}
+
+type ExchangeHourData @entity {
+  id: ID!
+  hourStartUnix: Int! # unix timestamp for start of hour
+  exchange: Exchange!
+
+  # price stats
+  tokenPrice: BigDecimal!
+  totalSupply: BigDecimal!
+
+  # volume stats
+  hourlyVolumeToken: BigDecimal!
+  hourlyVolumeETH: BigDecimal!
+  hourlyTxns: BigInt!
+}
+
+type ExchangeDayData @entity {
+  id: ID!
+  date: Int!
+  exchange: Exchange!
+
+  # price stats
+  tokenPrice: BigDecimal!
+  totalSupply: BigDecimal!
+
+  # volume stats
+  dailyVolumeToken: BigDecimal!
+  dailyVolumeETH: BigDecimal!
+  dailyTxns: BigInt!
 }
