@@ -1,0 +1,23 @@
+specVersion: 0.0.1
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: PairFactory
+    network: rinkeby
+    source:
+      address: "0xc7aA721d75df123247b46cb3Fa99cd4EE78b6c1F"
+      abi: PairFactory
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - PairCreated
+      abis:
+        - name: PairFactory
+          file: ./abis/PairFactory.json
+      eventHandlers:
+        - event: PairCreated(address,address,address)
+          handler: handlePairCreated
+      file: ./src/mapping.ts
