@@ -31,8 +31,16 @@ export class PairCreated__Params {
     return this._event.parameters[1].value.toAddress();
   }
 
+  get name(): string {
+    return this._event.parameters[2].value.toString();
+  }
+
+  get symbol(): string {
+    return this._event.parameters[3].value.toString();
+  }
+
   get creator(): Address {
-    return this._event.parameters[2].value.toAddress();
+    return this._event.parameters[4].value.toAddress();
   }
 }
 

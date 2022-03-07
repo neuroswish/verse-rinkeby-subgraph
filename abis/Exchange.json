@@ -85,15 +85,9 @@
         "internalType": "address",
         "name": "redeemer",
         "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "totalSupply",
-        "type": "uint256"
       }
     ],
-    "name": "Redeemed",
+    "name": "Redeem",
     "type": "event"
   },
   {

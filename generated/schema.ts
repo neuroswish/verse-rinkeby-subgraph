@@ -282,7 +282,6 @@ export class Cryptomedia extends Entity {
     this.set("symbol", Value.fromString(""));
     this.set("deployer", Value.fromBytes(Bytes.empty()));
     this.set("creator", Value.fromBytes(Bytes.empty()));
-    this.set("tokenURI", Value.fromString(""));
   }
 
   save(): void {
@@ -345,15 +344,6 @@ export class Cryptomedia extends Entity {
 
   set creator(value: Bytes) {
     this.set("creator", Value.fromBytes(value));
-  }
-
-  get tokenURI(): string {
-    let value = this.get("tokenURI");
-    return value!.toString();
-  }
-
-  set tokenURI(value: string) {
-    this.set("tokenURI", Value.fromString(value));
   }
 }
 

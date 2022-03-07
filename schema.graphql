@@ -51,7 +51,6 @@ type Cryptomedia @entity {
   symbol: String!
   deployer: Bytes!
   creator: Bytes!
-  tokenURI: String!
 }
 
 # interactions

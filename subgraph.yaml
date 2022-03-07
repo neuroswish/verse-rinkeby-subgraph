@@ -7,9 +7,9 @@ dataSources:
     name: PairFactory
     network: rinkeby
     source:
-      address: "0xc7aA721d75df123247b46cb3Fa99cd4EE78b6c1F"
+      address: "0x7A4aA32A375aCbE448cD40bEc04F5F942B2A5956"
       abi: PairFactory
-      startBlock: 10283756
+      startBlock: 10285417
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -20,7 +20,7 @@ dataSources:
         - name: PairFactory
           file: ./abis/PairFactory.json
       eventHandlers:
-        - event: PairCreated(address,address,address)
+        - event: PairCreated(address,address,string,string,address)
           handler: handlePairCreated
       file: ./src/mappings/factory.ts
 templates:
@@ -46,8 +46,8 @@ templates:
           handler: handleBuy
         - event: Sell(indexed address,uint256,uint256,uint256,uint256)
           handler: handleSell
-        - event: Redeemed(indexed address,uint256)
-          handler: handleRedeemed
+        - event: Redeem(indexed address)
+          handler: handleRedeem
   - kind: ethereum/contract
     name: Cryptomedia
     network: rinkeby

@@ -1,4 +1,4 @@
-import { log } from '@graphprotocol/graph-ts'
+import { log, BigInt, BigDecimal, Address } from '@graphprotocol/graph-ts'
 import { PairFactory, Exchange, Cryptomedia } from '../../generated/schema'
 import { Exchange as ExchangeTemplate } from '../../generated/templates'
 import { Cryptomedia as CryptomediaTemplate } from '../../generated/templates'
@@ -15,6 +15,7 @@ export function handlePairCreated(event: PairCreated): void {
     pairFactory.pairCount = ZERO_BI
     pairFactory.txCount = ZERO_BI
   }
+  pairFactory.pairCount = pairFactory.pairCount.plus(ONE_BI)
   pairFactory.save();
 
   // create new exchange instance
@@ -48,6 +49,5 @@ export function handlePairCreated(event: PairCreated): void {
   // save updated values
   exchange.save()
   cryptomedia.save()
-  pairFactory.pairCount = pairFactory.pairCount.plus(ONE_BI)
   pairFactory.save()
 }
