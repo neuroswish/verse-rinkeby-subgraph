@@ -41,9 +41,6 @@ export function handlePairCreated(event: PairCreated): void {
   //cryptomedia.symbol = event.params.symbol;
   cryptomedia.deployer = event.address;
   cryptomedia.creator = event.params.creator;
-  cryptomedia.txCount = ZERO_BI;
-  cryptomedia.redeemed = ZERO_BI;
-  cryptomedia.redemptions = [];
   // create the tracked contract based on the template
   ExchangeTemplate.create(event.params.exchangeAddress)
   CryptomediaTemplate.create(event.params.cryptomediaAddress)

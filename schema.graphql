@@ -37,6 +37,7 @@ type Exchange @entity {
   positions: [Position!]! @derivedFrom(field: "exchange")
   buys: [Buy!]! @derivedFrom(field: "exchange")
   sells: [Sell!]! @derivedFrom(field: "exchange")
+  redemptions: [Redeem!]! @derivedFrom(field: "exchange")
   exchangeHourData: [ExchangeHourData!]! @derivedFrom(field: "exchange")
   exchangeDayData: [ExchangeDayData!]! @derivedFrom(field: "exchange")
 }
@@ -51,13 +52,6 @@ type Cryptomedia @entity {
   deployer: Bytes!
   creator: Bytes!
   tokenURI: String!
-
-  # lifetime volume stats
-  redeemed: BigInt!
-  txCount: BigInt!
-
-  # derived fields
-  redemptions: [Redeem!]! @derivedFrom(field: "cryptomedia")
 }
 
 # interactions
@@ -65,7 +59,6 @@ type Cryptomedia @entity {
 type User @entity {
   id: ID!
   positions: [Position!]! @derivedFrom(field: "user")
-  holds: [Hold!]! @derivedFrom(field: "user")
 }
 
 type Position @entity {
@@ -76,21 +69,13 @@ type Position @entity {
   balance: BigDecimal!
 }
 
-type Hold @entity {
-  # id will be combination of user - cryptomedia
-  id: ID!
-  user: User!
-  cryptomedia: Cryptomedia!
-  balance: BigDecimal!
-}
-
 # events
 
 type Redeem @entity {
   id: ID! # txn hash
   blockNumber: BigInt!
   timestamp: BigInt!
-  cryptomedia: Cryptomedia!
+  exchange: Exchange!
   redeemer: Bytes!
 }
 

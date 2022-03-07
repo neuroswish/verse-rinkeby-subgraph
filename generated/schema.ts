@@ -245,6 +245,15 @@ export class Exchange extends Entity {
     this.set("sells", Value.fromStringArray(value));
   }
 
+  get redemptions(): Array<string> {
+    let value = this.get("redemptions");
+    return value!.toStringArray();
+  }
+
+  set redemptions(value: Array<string>) {
+    this.set("redemptions", Value.fromStringArray(value));
+  }
+
   get exchangeHourData(): Array<string> {
     let value = this.get("exchangeHourData");
     return value!.toStringArray();
@@ -274,8 +283,6 @@ export class Cryptomedia extends Entity {
     this.set("deployer", Value.fromBytes(Bytes.empty()));
     this.set("creator", Value.fromBytes(Bytes.empty()));
     this.set("tokenURI", Value.fromString(""));
-    this.set("redeemed", Value.fromBigInt(BigInt.zero()));
-    this.set("txCount", Value.fromBigInt(BigInt.zero()));
   }
 
   save(): void {
@@ -348,33 +355,6 @@ export class Cryptomedia extends Entity {
   set tokenURI(value: string) {
     this.set("tokenURI", Value.fromString(value));
   }
-
-  get redeemed(): BigInt {
-    let value = this.get("redeemed");
-    return value!.toBigInt();
-  }
-
-  set redeemed(value: BigInt) {
-    this.set("redeemed", Value.fromBigInt(value));
-  }
-
-  get txCount(): BigInt {
-    let value = this.get("txCount");
-    return value!.toBigInt();
-  }
-
-  set txCount(value: BigInt) {
-    this.set("txCount", Value.fromBigInt(value));
-  }
-
-  get redemptions(): Array<string> {
-    let value = this.get("redemptions");
-    return value!.toStringArray();
-  }
-
-  set redemptions(value: Array<string>) {
-    this.set("redemptions", Value.fromStringArray(value));
-  }
 }
 
 export class User extends Entity {
@@ -416,15 +396,6 @@ export class User extends Entity {
 
   set positions(value: Array<string>) {
     this.set("positions", Value.fromStringArray(value));
-  }
-
-  get holds(): Array<string> {
-    let value = this.get("holds");
-    return value!.toStringArray();
-  }
-
-  set holds(value: Array<string>) {
-    this.set("holds", Value.fromStringArray(value));
   }
 }
 
@@ -492,70 +463,6 @@ export class Position extends Entity {
   }
 }
 
-export class Hold extends Entity {
-  constructor(id: string) {
-    super();
-    this.set("id", Value.fromString(id));
-
-    this.set("user", Value.fromString(""));
-    this.set("cryptomedia", Value.fromString(""));
-    this.set("balance", Value.fromBigDecimal(BigDecimal.zero()));
-  }
-
-  save(): void {
-    let id = this.get("id");
-    assert(id != null, "Cannot save Hold entity without an ID");
-    if (id) {
-      assert(
-        id.kind == ValueKind.STRING,
-        "Cannot save Hold entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
-      );
-      store.set("Hold", id.toString(), this);
-    }
-  }
-
-  static load(id: string): Hold | null {
-    return changetype<Hold | null>(store.get("Hold", id));
-  }
-
-  get id(): string {
-    let value = this.get("id");
-    return value!.toString();
-  }
-
-  set id(value: string) {
-    this.set("id", Value.fromString(value));
-  }
-
-  get user(): string {
-    let value = this.get("user");
-    return value!.toString();
-  }
-
-  set user(value: string) {
-    this.set("user", Value.fromString(value));
-  }
-
-  get cryptomedia(): string {
-    let value = this.get("cryptomedia");
-    return value!.toString();
-  }
-
-  set cryptomedia(value: string) {
-    this.set("cryptomedia", Value.fromString(value));
-  }
-
-  get balance(): BigDecimal {
-    let value = this.get("balance");
-    return value!.toBigDecimal();
-  }
-
-  set balance(value: BigDecimal) {
-    this.set("balance", Value.fromBigDecimal(value));
-  }
-}
-
 export class Redeem extends Entity {
   constructor(id: string) {
     super();
@@ -563,7 +470,7 @@ export class Redeem extends Entity {
 
     this.set("blockNumber", Value.fromBigInt(BigInt.zero()));
     this.set("timestamp", Value.fromBigInt(BigInt.zero()));
-    this.set("cryptomedia", Value.fromString(""));
+    this.set("exchange", Value.fromString(""));
     this.set("redeemer", Value.fromBytes(Bytes.empty()));
   }
 
@@ -611,13 +518,13 @@ export class Redeem extends Entity {
     this.set("timestamp", Value.fromBigInt(value));
   }
 
-  get cryptomedia(): string {
-    let value = this.get("cryptomedia");
+  get exchange(): string {
+    let value = this.get("exchange");
     return value!.toString();
   }
 
-  set cryptomedia(value: string) {
-    this.set("cryptomedia", Value.fromString(value));
+  set exchange(value: string) {
+    this.set("exchange", Value.fromString(value));
   }
 
   get redeemer(): Bytes {

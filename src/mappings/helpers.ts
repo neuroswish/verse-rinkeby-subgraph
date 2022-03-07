@@ -63,6 +63,7 @@ export function updatePosition(exchangeAddress: Address, user: Address, amount: 
   exchange.save()
 }
 
+
 export function setUser(userAddress: Address): void {
   let user = User.load(userAddress.toHexString())
   if (user === null) {
@@ -116,4 +117,3 @@ export function updateMarketCap(exchangeAddress: Address, price: BigDecimal, tot
   exchange.marketCap = price.times(totalSupply)
   exchange.save()
 }
-
