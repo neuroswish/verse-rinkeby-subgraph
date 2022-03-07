@@ -10,7 +10,7 @@ import {
   Redeem as RedeemEvent,
 } from "../../generated/schema"
 
-import { Buy, Sell, Redeemed, Exchange as ExchangeContract } from '../../generated/templates/Exchange/Exchange'
+import { Buy, Sell, Redeem, Exchange as ExchangeContract } from '../../generated/templates/Exchange/Exchange'
 import { Cryptomedia as CryptomediaContract } from '../../generated/templates/Cryptomedia/Cryptomedia'
 import { updateExchangeHourData, updateExchangeDayData, updateVerseDayData } from './dayUpdates'
 import {
@@ -48,7 +48,7 @@ export function handleBuy(event: Buy): void {
     log.error('Pair Factory is null', [event.address.toHexString()])
     throw new Error("Pair Factory is null")
   }
-  // get cryptomedia contract from chain
+  // get exchange contract from chain
   let exchangeContract = ExchangeContract.bind(event.address)
 
   // get amount of tokens being bought
@@ -56,7 +56,7 @@ export function handleBuy(event: Buy): void {
   // get price of tokens bought
   let price = convertEthToDecimal(event.params.price)
 
-  // get list of buys from saved cryptomedia object
+  // get list of buys from saved exchange object
   let buys = exchange.buys
   let buy = new BuyEvent(event.transaction.hash
     .toHexString()
@@ -69,7 +69,7 @@ export function handleBuy(event: Buy): void {
   buy.price = price
   buy.buyer = buyer
   buy.save()
-  // push new buy event to cryptomedia object buys list
+  // push new buy event to exchange object buys list
   buys.push(buy.id)
 
   // update calculated and derived fields based on data pulled directly from contract
@@ -94,19 +94,19 @@ export function handleBuy(event: Buy): void {
   verseDayData.txCount
   verseDayData.save()
 
-  // cryptomedia
+  // exchange
   exchange.volumeETH = exchange.volumeETH.plus(price)
   exchange.txCount = exchange.txCount.plus(ONE_BI)
   exchange.save()
   
-  // daily cryptomedia
+  // daily exchange
   let exchangeDayData = updateExchangeDayData(event)
   exchangeDayData.dailyVolumeETH = exchangeDayData.dailyVolumeETH.plus(price)
   exchangeDayData.dailyVolumeToken = exchangeDayData.dailyVolumeToken.plus(amount)
   exchangeDayData.tokenPrice = tokenPrice
   exchangeDayData.save()
 
-  // hourly cryptomedia
+  // hourly exchange
   let exchangeHourData = updateExchangeHourData(event)
   exchangeHourData.hourlyVolumeETH = exchangeHourData.hourlyVolumeETH.plus(price)
   exchangeHourData.hourlyVolumeToken = exchangeHourData.hourlyVolumeToken.plus(amount)
@@ -130,7 +130,7 @@ export function handleSell(event: Sell): void {
     log.error('Pair Factory is null', [event.address.toHexString()])
     throw new Error("Pair Factory is null")
   }
-  // get cryptomedia contract from chain
+  // get exchange contract from chain
   let exchangeContract = ExchangeContract.bind(event.address)
 
   // get amount of tokens being sold
@@ -138,7 +138,7 @@ export function handleSell(event: Sell): void {
   // get price of tokens sold
   let price = convertEthToDecimal(event.params.eth)
 
-  // get list of sells from saved cryptomedia object
+  // get list of sells from saved exchange object
   let sells = exchange.sells
   let sell = new SellEvent(event.transaction.hash
     .toHexString()
@@ -151,7 +151,7 @@ export function handleSell(event: Sell): void {
   sell.price = price
   sell.seller = seller
   sell.save()
-  // push new sell event to cryptomedia object sells list
+  // push new sell event to exchange object sells list
   sells.push(sell.id)
 
   // update calculated and derived fields based on data pulled directly from contract
@@ -176,12 +176,12 @@ export function handleSell(event: Sell): void {
   verseDayData.txCount
   verseDayData.save()
 
-  // cryptomedia
+  // exchange
   exchange.volumeETH = exchange.volumeETH.plus(price)
   exchange.txCount = exchange.txCount.plus(ONE_BI)
   exchange.save()
   
-  // daily cryptomedia
+  // daily exchange
   let exchangeDayData = updateExchangeDayData(event)
   exchangeDayData.dailyVolumeETH = exchangeDayData.dailyVolumeETH.plus(price)
   exchangeDayData.dailyVolumeToken = exchangeDayData.dailyVolumeToken.plus(amount)
@@ -196,7 +196,7 @@ export function handleSell(event: Sell): void {
   exchangeHourData.save()
 }
 
-export function handleRedeemed(event: Redeemed): void {
+export function handleRedeem(event: Redeem): void {
   // redeemer stats
   let redeemer = event.params.redeemer
   setUser(redeemer)
@@ -212,10 +212,10 @@ export function handleRedeemed(event: Redeemed): void {
     log.error('Pair Factory is null', [event.address.toHexString()])
     throw new Error("Pair Factory is null")
   }
-  // get cryptomedia contract from chain
+  // get exchange contract from chain
   let exchangeContract = ExchangeContract.bind(event.address)
 
-  // get list of sells from saved cryptomedia object
+  // get list of sells from saved exchange object
   let redemptions = exchange.redemptions
   let redemption = new RedeemEvent(event.transaction.hash
     .toHexString()
@@ -226,7 +226,7 @@ export function handleRedeemed(event: Redeemed): void {
   redemption.exchange = exchange.id
   redemption.redeemer = redeemer
   redemption.save()
-  // push new sell event to cryptomedia object sells list
+  // push new sell event to exchange object sells list
   redemptions.push(redemption.id)
 
   // update calculated and derived fields based on data pulled directly from contract

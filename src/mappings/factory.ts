@@ -20,8 +20,8 @@ export function handlePairCreated(event: PairCreated): void {
 
   // create new exchange instance
   let exchange = new Exchange(event.params.exchangeAddress.toHexString()) as Exchange
-  //exchange.name = event.params.name;
-  //cryptomedia.symbol = event.params.symbol;
+  exchange.name = event.params.name;
+  exchange.symbol = event.params.symbol;
   exchange.deployer = event.address;
   exchange.creator = event.params.creator;
   exchange.poolBalance = ZERO_BD;
@@ -31,17 +31,17 @@ export function handlePairCreated(event: PairCreated): void {
   exchange.marketCap = ZERO_BD;
   exchange.txCount = ZERO_BI;
   exchange.volumeETH = ZERO_BD;
-
   exchange.positions = [];
   exchange.buys = [];
   exchange.sells = [];
 
   // create new cryptomedia instance
   let cryptomedia = new Cryptomedia(event.params.cryptomediaAddress.toHexString()) as Cryptomedia
-  //cryptomedia.name = event.params.name;
-  //cryptomedia.symbol = event.params.symbol;
+  cryptomedia.name = event.params.name;
+  cryptomedia.symbol = event.params.symbol;
   cryptomedia.deployer = event.address;
   cryptomedia.creator = event.params.creator;
+
   // create the tracked contract based on the template
   ExchangeTemplate.create(event.params.exchangeAddress)
   CryptomediaTemplate.create(event.params.cryptomediaAddress)

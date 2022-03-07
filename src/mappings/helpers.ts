@@ -3,7 +3,7 @@ import { PairFactory, Exchange, Cryptomedia, User, Position, Buy, Sell } from ".
 import { PairFactory as PairFactoryContract } from '../../generated/templates/Exchange/PairFactory'
 
 export const ADDRESS_ZERO = '0x0000000000000000000000000000000000000000'
-export const PAIR_FACTORY_ADDRESS = '0xc7aA721d75df123247b46cb3Fa99cd4EE78b6c1F'
+export const PAIR_FACTORY_ADDRESS = '0x7A4aA32A375aCbE448cD40bEc04F5F942B2A5956'
 
 export let ZERO_BI = BigInt.fromI32(0)
 export let ONE_BI = BigInt.fromI32(1)
@@ -12,10 +12,6 @@ export let ONE_BD = BigDecimal.fromString('1')
 export let BI_18 = BigInt.fromI32(18)
 export let RESERVE_RATIO = BigInt.fromString('333333')
 export let MAX_RATIO = BigDecimal.fromString('1000000')
-
-//export let factoryContract = PairFactoryContract.bind(Address.fromString(CRYPTOMEDIA_FACTORY_ADDRESS));
-
-// utility
 
 export function exponentToBigDecimal(decimals: BigInt): BigDecimal {
   let bd = BigDecimal.fromString('1')
