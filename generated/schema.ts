@@ -17,7 +17,7 @@ export class PairFactory extends Entity {
     this.set("id", Value.fromString(id));
 
     this.set("totalVolumeETH", Value.fromBigDecimal(BigDecimal.zero()));
-    this.set("cryptomediaCount", Value.fromBigInt(BigInt.zero()));
+    this.set("pairCount", Value.fromBigInt(BigInt.zero()));
     this.set("txCount", Value.fromBigInt(BigInt.zero()));
   }
 
@@ -56,13 +56,13 @@ export class PairFactory extends Entity {
     this.set("totalVolumeETH", Value.fromBigDecimal(value));
   }
 
-  get cryptomediaCount(): BigInt {
-    let value = this.get("cryptomediaCount");
+  get pairCount(): BigInt {
+    let value = this.get("pairCount");
     return value!.toBigInt();
   }
 
-  set cryptomediaCount(value: BigInt) {
-    this.set("cryptomediaCount", Value.fromBigInt(value));
+  set pairCount(value: BigInt) {
+    this.set("pairCount", Value.fromBigInt(value));
   }
 
   get txCount(): BigInt {

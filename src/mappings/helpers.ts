@@ -3,7 +3,7 @@ import { PairFactory, Exchange, Cryptomedia, User, Position, Buy, Sell } from ".
 import { PairFactory as PairFactoryContract } from '../../generated/templates/Exchange/PairFactory'
 
 export const ADDRESS_ZERO = '0x0000000000000000000000000000000000000000'
-export const CRYPTOMEDIA_FACTORY_ADDRESS = '0xc7aA721d75df123247b46cb3Fa99cd4EE78b6c1F'
+export const PAIR_FACTORY_ADDRESS = '0xc7aA721d75df123247b46cb3Fa99cd4EE78b6c1F'
 
 export let ZERO_BI = BigInt.fromI32(0)
 export let ONE_BI = BigInt.fromI32(1)
@@ -13,7 +13,7 @@ export let BI_18 = BigInt.fromI32(18)
 export let RESERVE_RATIO = BigInt.fromString('333333')
 export let MAX_RATIO = BigDecimal.fromString('1000000')
 
-export let factoryContract = PairFactoryContract.bind(Address.fromString(CRYPTOMEDIA_FACTORY_ADDRESS));
+//export let factoryContract = PairFactoryContract.bind(Address.fromString(CRYPTOMEDIA_FACTORY_ADDRESS));
 
 // utility
 
@@ -36,15 +36,6 @@ export function convertEthToDecimal(eth: BigInt): BigDecimal {
 export function convertTokenToDecimal(token: BigInt): BigDecimal {
   return token.toBigDecimal().div(exponentToBigDecimal(BigInt.fromString('6')))
 }
-
-// export function convertTokenToDecimal(tokenAmount: BigInt, exchangeDecimals: BigInt): BigDecimal {
-//   if (exchangeDecimals == ZERO_BI) {
-//     return tokenAmount.toBigDecimal()
-//   }
-//   return tokenAmount.toBigDecimal().div(exponentToBigDecimal(exchangeDecimals))
-// }
-
-// update
 
 export function updatePosition(exchangeAddress: Address, user: Address, amount: BigDecimal): void {
   let id = exchangeAddress.toHexString().concat('-').concat(user.toHexString())

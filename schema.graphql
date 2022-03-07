@@ -6,7 +6,7 @@ type PairFactory @entity {
 
   # volume stats
   totalVolumeETH: BigDecimal!
-  cryptomediaCount: BigInt!
+  pairCount: BigInt!
   txCount: BigInt!
 }
 
