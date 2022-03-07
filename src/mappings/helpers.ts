@@ -10,7 +10,7 @@ export let ONE_BI = BigInt.fromI32(1)
 export let ZERO_BD = BigDecimal.fromString('0')
 export let ONE_BD = BigDecimal.fromString('1')
 export let BI_18 = BigInt.fromI32(18)
-export let RESERVE_RATIO = BigInt.fromString('333333')
+export let RESERVE_RATIO = BigInt.fromString('242424')
 export let MAX_RATIO = BigDecimal.fromString('1000000')
 
 export function exponentToBigDecimal(decimals: BigInt): BigDecimal {
@@ -30,7 +30,7 @@ export function convertEthToDecimal(eth: BigInt): BigDecimal {
 }
 
 export function convertTokenToDecimal(token: BigInt): BigDecimal {
-  return token.toBigDecimal().div(exponentToBigDecimal(BigInt.fromString('6')))
+  return token.toBigDecimal().div(exponentToBigDecimal(BigInt.fromString('18')))
 }
 
 export function updatePosition(exchangeAddress: Address, user: Address, amount: BigDecimal): void {
