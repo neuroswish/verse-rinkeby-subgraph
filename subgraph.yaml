@@ -1,13 +1,15 @@
 specVersion: 0.0.2
+description: Verse is a hyperexchange protocol on Ethereum
 schema:
   file: ./schema.graphql
 dataSources:
-  - kind: ethereum
+  - kind: ethereum/contract
     name: PairFactory
     network: rinkeby
     source:
       address: "0xc7aA721d75df123247b46cb3Fa99cd4EE78b6c1F"
       abi: PairFactory
+      startBlock: 10283756
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -20,4 +22,50 @@ dataSources:
       eventHandlers:
         - event: PairCreated(address,address,address)
           handler: handlePairCreated
-      file: ./src/mapping.ts
+      file: ./src/mappings/factory.ts
+templates:
+  - kind: ethereum/contract
+    name: Exchange
+    network: rinkeby
+    source:
+      abi: Exchange
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      file: ./src/mappings/core.ts
+      entities:
+        - Exchange
+      abis:
+        - name: Exchange
+          file: ./abis/Exchange.json
+        - name: PairFactory
+          file: ./abis/PairFactory.json
+      eventHandlers:
+        - event: Buy(indexed address,uint256,uint256,uint256,uint256)
+          handler: handleBuy
+        - event: Sell(indexed address,uint256,uint256,uint256,uint256)
+          handler: handleSell
+        - event: Redeemed(indexed address,uint256)
+          handler: handleRedeemed
+  - kind: ethereum/contract
+    name: Cryptomedia
+    network: rinkeby
+    source:
+      abi: Cryptomedia
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      file: ./src/mappings/core.ts
+      entities:
+        - Cryptomedia
+      abis:
+        - name: Cryptomedia
+          file: ./abis/Cryptomedia.json
+        - name: PairFactory
+          file: ./abis/PairFactory.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+

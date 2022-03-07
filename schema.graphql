@@ -37,8 +37,8 @@ type Exchange @entity {
   positions: [Position!]! @derivedFrom(field: "exchange")
   buys: [Buy!]! @derivedFrom(field: "exchange")
   sells: [Sell!]! @derivedFrom(field: "exchange")
-  exchangeHourData: [CryptomediaHourData!]! @derivedFrom(field: "exchange")
-  exchangeDayData: [CryptomediaDayData!]! @derivedFrom(field: "exchange")
+  exchangeHourData: [ExchangeHourData!]! @derivedFrom(field: "exchange")
+  exchangeDayData: [ExchangeDayData!]! @derivedFrom(field: "exchange")
 }
 
 type Cryptomedia @entity {
@@ -57,7 +57,6 @@ type Cryptomedia @entity {
   txCount: BigInt!
 
   # derived fields
-  owners: [Position!]! @derivedFrom(field: "cryptomedia")
   redemptions: [Redeem!]! @derivedFrom(field: "cryptomedia")
 }
 
@@ -91,6 +90,7 @@ type Redeem @entity {
   id: ID! # txn hash
   blockNumber: BigInt!
   timestamp: BigInt!
+  cryptomedia: Cryptomedia!
   redeemer: Bytes!
 }
 
