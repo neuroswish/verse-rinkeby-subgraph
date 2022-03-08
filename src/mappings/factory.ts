@@ -31,9 +31,6 @@ export function handlePairCreated(event: PairCreated): void {
   exchange.marketCap = ZERO_BD;
   exchange.txCount = ZERO_BI;
   exchange.volumeETH = ZERO_BD;
-  exchange.positions = [];
-  exchange.buys = [];
-  exchange.sells = [];
 
   // create new cryptomedia instance
   let cryptomedia = new Cryptomedia(event.params.cryptomediaAddress.toHexString()) as Cryptomedia
