@@ -11,7 +11,7 @@ export let ZERO_BD = BigDecimal.fromString('0')
 export let ONE_BD = BigDecimal.fromString('1')
 export let BI_18 = BigInt.fromI32(18)
 export let RESERVE_RATIO = BigInt.fromString('242424')
-export let MAX_RATIO = BigDecimal.fromString('1000000')
+export let MAX_RATIO = BigInt.fromString('1000000')
 
 export function exponentToBigDecimal(decimals: BigInt): BigDecimal {
   let bd = BigDecimal.fromString('1')
@@ -33,7 +33,7 @@ export function convertTokenToDecimal(token: BigInt): BigDecimal {
   return token.toBigDecimal().div(exponentToBigDecimal(BigInt.fromString('18')))
 }
 
-export function updatePosition(exchangeAddress: Address, user: Address, amount: BigDecimal): void {
+export function updatePosition(exchangeAddress: Address, user: Address, amount: BigInt): void {
   let id = exchangeAddress.toHexString().concat('-').concat(user.toHexString())
   let position = Position.load(id)
   if (position === null) {
@@ -68,42 +68,42 @@ export function setUser(userAddress: Address): void {
   }
 }
 
-export function updatePoolBalance(exchangeAddress: Address, newBalance: BigDecimal): void {
-  let id = exchangeAddress.toHexString()
-  let exchange = Exchange.load(id)
-  if (exchange === null) {
-    log.error('Exchange is null', [id])
-    throw new Error("Exchange is null")
-  }
-  exchange.poolBalance = newBalance
-  exchange.save()
-}
+// export function updatePoolBalance(exchangeAddress: Address, newBalance: BigDecimal): void {
+//   let id = exchangeAddress.toHexString()
+//   let exchange = Exchange.load(id)
+//   if (exchange === null) {
+//     log.error('Exchange is null', [id])
+//     throw new Error("Exchange is null")
+//   }
+//   exchange.poolBalance = newBalance
+//   exchange.save()
+// }
 
-export function updateTotalSupply(exchangeAddress: Address, newTotalSupply: BigDecimal): void {
-  let id = exchangeAddress.toHexString()
-  let exchange = Exchange.load(id)
-  if (exchange === null) {
-    log.error('Exchange is null', [id])
-    throw new Error("Exchange is null")
-  }
-  exchange.totalSupply = newTotalSupply
-  exchange.save()
-}
+// export function updateTotalSupply(exchangeAddress: Address, newTotalSupply: BigDecimal): void {
+//   let id = exchangeAddress.toHexString()
+//   let exchange = Exchange.load(id)
+//   if (exchange === null) {
+//     log.error('Exchange is null', [id])
+//     throw new Error("Exchange is null")
+//   }
+//   exchange.totalSupply = newTotalSupply
+//   exchange.save()
+// }
 
-export function updateTokenPrice(exchangeAddress: Address, poolBalance: BigDecimal, reserveRatio: BigInt, totalSupply: BigDecimal): BigDecimal {
+export function updateTokenPrice(exchangeAddress: Address, poolBalance: BigInt, reserveRatio: BigInt, totalSupply: BigInt): BigInt {
   let id = exchangeAddress.toHexString()
   let exchange = Exchange.load(id)
   if (exchange === null) {
     log.error('Exchange is null', [id])
     throw new Error("Exchange is null")
   }
-  exchange.tokenPrice = (poolBalance).div((reserveRatio.toBigDecimal().div(MAX_RATIO)).times(totalSupply))
+  exchange.tokenPrice = (poolBalance).div((reserveRatio.div(MAX_RATIO)).times(totalSupply))
   exchange.save()
   let price = exchange.tokenPrice
   return price
 }
 
-export function updateMarketCap(exchangeAddress: Address, price: BigDecimal, totalSupply: BigDecimal): void {
+export function updateMarketCap(exchangeAddress: Address, price: BigInt, totalSupply: BigInt): void {
   let id = exchangeAddress.toHexString()
   let exchange = Exchange.load(id)
   if (exchange === null) {

@@ -5,7 +5,7 @@ type PairFactory @entity {
   id: ID!
 
   # volume stats
-  totalVolumeETH: BigDecimal!
+  totalVolumeETH: BigInt!
   pairCount: BigInt!
   txCount: BigInt!
 }
@@ -19,18 +19,18 @@ type Exchange @entity {
   symbol: String!
   deployer: Bytes!
   creator: Bytes!
-  poolBalance: BigDecimal!
-  totalSupply: BigDecimal!
+  poolBalance: BigInt!
+  totalSupply: BigInt!
   reserveRatio: BigInt!
 
   # token price
-  tokenPrice: BigDecimal!
+  tokenPrice: BigInt!
 
   # market cap
-  marketCap: BigDecimal!
+  marketCap: BigInt!
 
   # lifetime volume stats
-  volumeETH: BigDecimal!
+  volumeETH: BigInt!
   txCount: BigInt!
 
   # derived fields
@@ -65,7 +65,7 @@ type Position @entity {
   id: ID!
   user: User!
   exchange: Exchange!
-  balance: BigDecimal!
+  balance: BigInt!
 }
 
 # events
@@ -83,8 +83,8 @@ type Buy @entity {
   blockNumber: BigInt!
   timestamp: BigInt!
   exchange: Exchange!
-  amount: BigDecimal!
-  price: BigDecimal!
+  amount: BigInt!
+  price: BigInt!
   buyer: Bytes!
 }
 
@@ -93,8 +93,8 @@ type Sell @entity {
   blockNumber: BigInt!
   timestamp: BigInt!
   exchange: Exchange!
-  amount: BigDecimal!
-  price: BigDecimal!
+  amount: BigInt!
+  price: BigInt!
   seller: Bytes!
 }
 
@@ -105,8 +105,8 @@ type VerseDayData @entity {
   date: Int!
 
   # volume stats
-  dailyVolumeETH: BigDecimal!
-  totalVolumeETH: BigDecimal!
+  dailyVolumeETH: BigInt!
+  totalVolumeETH: BigInt!
   txCount: BigInt!
 }
 
@@ -116,12 +116,12 @@ type ExchangeHourData @entity {
   exchange: Exchange!
 
   # price stats
-  tokenPrice: BigDecimal!
-  totalSupply: BigDecimal!
+  tokenPrice: BigInt!
+  totalSupply: BigInt!
 
   # volume stats
-  hourlyVolumeToken: BigDecimal!
-  hourlyVolumeETH: BigDecimal!
+  hourlyVolumeToken: BigInt!
+  hourlyVolumeETH: BigInt!
   hourlyTxns: BigInt!
 }
 
@@ -131,11 +131,11 @@ type ExchangeDayData @entity {
   exchange: Exchange!
 
   # price stats
-  tokenPrice: BigDecimal!
-  totalSupply: BigDecimal!
+  tokenPrice: BigInt!
+  totalSupply: BigInt!
 
   # volume stats
-  dailyVolumeToken: BigDecimal!
-  dailyVolumeETH: BigDecimal!
+  dailyVolumeToken: BigInt!
+  dailyVolumeETH: BigInt!
   dailyTxns: BigInt!
 }

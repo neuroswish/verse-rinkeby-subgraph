@@ -11,7 +11,7 @@ export function handlePairCreated(event: PairCreated): void {
   let pairFactory = PairFactory.load(PAIR_FACTORY_ADDRESS)
   if (pairFactory === null) {
     pairFactory = new PairFactory(PAIR_FACTORY_ADDRESS);
-    pairFactory.totalVolumeETH = ZERO_BD
+    pairFactory.totalVolumeETH = ZERO_BI
     pairFactory.pairCount = ZERO_BI
     pairFactory.txCount = ZERO_BI
   }
@@ -24,13 +24,13 @@ export function handlePairCreated(event: PairCreated): void {
   exchange.symbol = event.params.symbol;
   exchange.deployer = event.address;
   exchange.creator = event.params.creator;
-  exchange.poolBalance = ZERO_BD;
-  exchange.totalSupply = ZERO_BD;
+  exchange.poolBalance = ZERO_BI;
+  exchange.totalSupply = ZERO_BI;
   exchange.reserveRatio = RESERVE_RATIO;
-  exchange.tokenPrice = ZERO_BD;
-  exchange.marketCap = ZERO_BD;
+  exchange.tokenPrice = ZERO_BI;
+  exchange.marketCap = ZERO_BI;
   exchange.txCount = ZERO_BI;
-  exchange.volumeETH = ZERO_BD;
+  exchange.volumeETH = ZERO_BI;
 
   // create new cryptomedia instance
   let cryptomedia = new Cryptomedia(event.params.cryptomediaAddress.toHexString()) as Cryptomedia

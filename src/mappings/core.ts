@@ -24,8 +24,6 @@ import {
   convertTokenToDecimal,
   BI_18,
   convertEthToDecimal,
-  updatePoolBalance,
-  updateTotalSupply,
   updateTokenPrice,
   updateMarketCap,
   ONE_BI
@@ -52,9 +50,11 @@ export function handleBuy(event: Buy): void {
   let exchangeContract = ExchangeContract.bind(event.address)
 
   // get amount of tokens being bought
-  let amount = convertTokenToDecimal(event.params.tokens)
+  //let amount = convertTokenToDecimal(event.params.tokens)
+  let amount = event.params.tokens
   // get price of tokens bought
-  let price = convertEthToDecimal(event.params.price)
+  //let price = convertEthToDecimal(event.params.price)
+  let price = event.params.price
 
   // get list of buys from saved exchange object
   //let buys = exchange.buys
@@ -71,12 +71,14 @@ export function handleBuy(event: Buy): void {
   //buys.push(buy.id)
 
   // update calculated and derived fields based on data pulled directly from contract
-  updatePosition(event.address, buyer, convertTokenToDecimal(exchangeContract.balanceOf(buyer)))
-  updatePoolBalance(event.address, convertEthToDecimal(exchangeContract.poolBalance()))
-  updateTotalSupply(event.address, convertTokenToDecimal(exchangeContract.totalSupply()))
-  let poolBalance = convertEthToDecimal(exchangeContract.poolBalance())
+  updatePosition(event.address, buyer, exchangeContract.balanceOf(buyer))
+  //updatePoolBalance(event.address, convertEthToDecimal(exchangeContract.poolBalance()))
+  //updateTotalSupply(event.address, convertTokenToDecimal(exchangeContract.totalSupply()))
+  //let poolBalance = convertEthToDecimal(exchangeContract.poolBalance())
+  let poolBalance = exchangeContract.poolBalance()
   let reserveRatio = exchangeContract.reserveRatio()
-  let totalSupply = convertTokenToDecimal(exchangeContract.totalSupply())
+  //let totalSupply = convertTokenToDecimal(exchangeContract.totalSupply())
+  let totalSupply = exchangeContract.totalSupply()
   let tokenPrice = updateTokenPrice(event.address, poolBalance, reserveRatio, totalSupply)
   updateMarketCap(event.address, tokenPrice, totalSupply)
 
@@ -132,9 +134,9 @@ export function handleSell(event: Sell): void {
   let exchangeContract = ExchangeContract.bind(event.address)
 
   // get amount of tokens being sold
-  let amount = convertTokenToDecimal(event.params.tokens)
+  let amount = event.params.tokens
   // get price of tokens sold
-  let price = convertEthToDecimal(event.params.eth)
+  let price = event.params.eth
 
   // get list of sells from saved exchange object
   //let sells = exchange.sells
@@ -151,12 +153,12 @@ export function handleSell(event: Sell): void {
   //sells.push(sell.id)
 
   // update calculated and derived fields based on data pulled directly from contract
-  updatePosition(event.address, seller, convertTokenToDecimal(exchangeContract.balanceOf(seller)))
-  updatePoolBalance(event.address, convertEthToDecimal(exchangeContract.poolBalance()))
-  updateTotalSupply(event.address, convertTokenToDecimal(exchangeContract.totalSupply()))
-  let poolBalance = convertEthToDecimal(exchangeContract.poolBalance())
+  updatePosition(event.address, seller, exchangeContract.balanceOf(seller))
+  // updatePoolBalance(event.address, convertEthToDecimal(exchangeContract.poolBalance()))
+  // updateTotalSupply(event.address, convertTokenToDecimal(exchangeContract.totalSupply()))
+  let poolBalance = exchangeContract.poolBalance()
   let reserveRatio = exchangeContract.reserveRatio()
-  let totalSupply = convertTokenToDecimal(exchangeContract.totalSupply())
+  let totalSupply = exchangeContract.totalSupply()
   let tokenPrice = updateTokenPrice(event.address, poolBalance, reserveRatio, totalSupply)
   updateMarketCap(event.address, tokenPrice, totalSupply)
 
@@ -224,6 +226,6 @@ export function handleRedeem(event: Redeem): void {
   //redemptions.push(redemption.id)
 
   // update calculated and derived fields based on data pulled directly from contract
-  updatePosition(event.address, redeemer, convertTokenToDecimal(exchangeContract.balanceOf(redeemer)))
+  updatePosition(event.address, redeemer, exchangeContract.balanceOf(redeemer))
 }
 

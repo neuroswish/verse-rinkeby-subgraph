@@ -16,7 +16,7 @@ export class PairFactory extends Entity {
     super();
     this.set("id", Value.fromString(id));
 
-    this.set("totalVolumeETH", Value.fromBigDecimal(BigDecimal.zero()));
+    this.set("totalVolumeETH", Value.fromBigInt(BigInt.zero()));
     this.set("pairCount", Value.fromBigInt(BigInt.zero()));
     this.set("txCount", Value.fromBigInt(BigInt.zero()));
   }
@@ -47,13 +47,13 @@ export class PairFactory extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get totalVolumeETH(): BigDecimal {
+  get totalVolumeETH(): BigInt {
     let value = this.get("totalVolumeETH");
-    return value!.toBigDecimal();
+    return value!.toBigInt();
   }
 
-  set totalVolumeETH(value: BigDecimal) {
-    this.set("totalVolumeETH", Value.fromBigDecimal(value));
+  set totalVolumeETH(value: BigInt) {
+    this.set("totalVolumeETH", Value.fromBigInt(value));
   }
 
   get pairCount(): BigInt {
@@ -84,12 +84,12 @@ export class Exchange extends Entity {
     this.set("symbol", Value.fromString(""));
     this.set("deployer", Value.fromBytes(Bytes.empty()));
     this.set("creator", Value.fromBytes(Bytes.empty()));
-    this.set("poolBalance", Value.fromBigDecimal(BigDecimal.zero()));
-    this.set("totalSupply", Value.fromBigDecimal(BigDecimal.zero()));
+    this.set("poolBalance", Value.fromBigInt(BigInt.zero()));
+    this.set("totalSupply", Value.fromBigInt(BigInt.zero()));
     this.set("reserveRatio", Value.fromBigInt(BigInt.zero()));
-    this.set("tokenPrice", Value.fromBigDecimal(BigDecimal.zero()));
-    this.set("marketCap", Value.fromBigDecimal(BigDecimal.zero()));
-    this.set("volumeETH", Value.fromBigDecimal(BigDecimal.zero()));
+    this.set("tokenPrice", Value.fromBigInt(BigInt.zero()));
+    this.set("marketCap", Value.fromBigInt(BigInt.zero()));
+    this.set("volumeETH", Value.fromBigInt(BigInt.zero()));
     this.set("txCount", Value.fromBigInt(BigInt.zero()));
   }
 
@@ -155,22 +155,22 @@ export class Exchange extends Entity {
     this.set("creator", Value.fromBytes(value));
   }
 
-  get poolBalance(): BigDecimal {
+  get poolBalance(): BigInt {
     let value = this.get("poolBalance");
-    return value!.toBigDecimal();
+    return value!.toBigInt();
   }
 
-  set poolBalance(value: BigDecimal) {
-    this.set("poolBalance", Value.fromBigDecimal(value));
+  set poolBalance(value: BigInt) {
+    this.set("poolBalance", Value.fromBigInt(value));
   }
 
-  get totalSupply(): BigDecimal {
+  get totalSupply(): BigInt {
     let value = this.get("totalSupply");
-    return value!.toBigDecimal();
+    return value!.toBigInt();
   }
 
-  set totalSupply(value: BigDecimal) {
-    this.set("totalSupply", Value.fromBigDecimal(value));
+  set totalSupply(value: BigInt) {
+    this.set("totalSupply", Value.fromBigInt(value));
   }
 
   get reserveRatio(): BigInt {
@@ -182,31 +182,31 @@ export class Exchange extends Entity {
     this.set("reserveRatio", Value.fromBigInt(value));
   }
 
-  get tokenPrice(): BigDecimal {
+  get tokenPrice(): BigInt {
     let value = this.get("tokenPrice");
-    return value!.toBigDecimal();
+    return value!.toBigInt();
   }
 
-  set tokenPrice(value: BigDecimal) {
-    this.set("tokenPrice", Value.fromBigDecimal(value));
+  set tokenPrice(value: BigInt) {
+    this.set("tokenPrice", Value.fromBigInt(value));
   }
 
-  get marketCap(): BigDecimal {
+  get marketCap(): BigInt {
     let value = this.get("marketCap");
-    return value!.toBigDecimal();
+    return value!.toBigInt();
   }
 
-  set marketCap(value: BigDecimal) {
-    this.set("marketCap", Value.fromBigDecimal(value));
+  set marketCap(value: BigInt) {
+    this.set("marketCap", Value.fromBigInt(value));
   }
 
-  get volumeETH(): BigDecimal {
+  get volumeETH(): BigInt {
     let value = this.get("volumeETH");
-    return value!.toBigDecimal();
+    return value!.toBigInt();
   }
 
-  set volumeETH(value: BigDecimal) {
-    this.set("volumeETH", Value.fromBigDecimal(value));
+  set volumeETH(value: BigInt) {
+    this.set("volumeETH", Value.fromBigInt(value));
   }
 
   get txCount(): BigInt {
@@ -396,7 +396,7 @@ export class Position extends Entity {
 
     this.set("user", Value.fromString(""));
     this.set("exchange", Value.fromString(""));
-    this.set("balance", Value.fromBigDecimal(BigDecimal.zero()));
+    this.set("balance", Value.fromBigInt(BigInt.zero()));
   }
 
   save(): void {
@@ -443,13 +443,13 @@ export class Position extends Entity {
     this.set("exchange", Value.fromString(value));
   }
 
-  get balance(): BigDecimal {
+  get balance(): BigInt {
     let value = this.get("balance");
-    return value!.toBigDecimal();
+    return value!.toBigInt();
   }
 
-  set balance(value: BigDecimal) {
-    this.set("balance", Value.fromBigDecimal(value));
+  set balance(value: BigInt) {
+    this.set("balance", Value.fromBigInt(value));
   }
 }
 
@@ -535,8 +535,8 @@ export class Buy extends Entity {
     this.set("blockNumber", Value.fromBigInt(BigInt.zero()));
     this.set("timestamp", Value.fromBigInt(BigInt.zero()));
     this.set("exchange", Value.fromString(""));
-    this.set("amount", Value.fromBigDecimal(BigDecimal.zero()));
-    this.set("price", Value.fromBigDecimal(BigDecimal.zero()));
+    this.set("amount", Value.fromBigInt(BigInt.zero()));
+    this.set("price", Value.fromBigInt(BigInt.zero()));
     this.set("buyer", Value.fromBytes(Bytes.empty()));
   }
 
@@ -593,22 +593,22 @@ export class Buy extends Entity {
     this.set("exchange", Value.fromString(value));
   }
 
-  get amount(): BigDecimal {
+  get amount(): BigInt {
     let value = this.get("amount");
-    return value!.toBigDecimal();
+    return value!.toBigInt();
   }
 
-  set amount(value: BigDecimal) {
-    this.set("amount", Value.fromBigDecimal(value));
+  set amount(value: BigInt) {
+    this.set("amount", Value.fromBigInt(value));
   }
 
-  get price(): BigDecimal {
+  get price(): BigInt {
     let value = this.get("price");
-    return value!.toBigDecimal();
+    return value!.toBigInt();
   }
 
-  set price(value: BigDecimal) {
-    this.set("price", Value.fromBigDecimal(value));
+  set price(value: BigInt) {
+    this.set("price", Value.fromBigInt(value));
   }
 
   get buyer(): Bytes {
@@ -629,8 +629,8 @@ export class Sell extends Entity {
     this.set("blockNumber", Value.fromBigInt(BigInt.zero()));
     this.set("timestamp", Value.fromBigInt(BigInt.zero()));
     this.set("exchange", Value.fromString(""));
-    this.set("amount", Value.fromBigDecimal(BigDecimal.zero()));
-    this.set("price", Value.fromBigDecimal(BigDecimal.zero()));
+    this.set("amount", Value.fromBigInt(BigInt.zero()));
+    this.set("price", Value.fromBigInt(BigInt.zero()));
     this.set("seller", Value.fromBytes(Bytes.empty()));
   }
 
@@ -687,22 +687,22 @@ export class Sell extends Entity {
     this.set("exchange", Value.fromString(value));
   }
 
-  get amount(): BigDecimal {
+  get amount(): BigInt {
     let value = this.get("amount");
-    return value!.toBigDecimal();
+    return value!.toBigInt();
   }
 
-  set amount(value: BigDecimal) {
-    this.set("amount", Value.fromBigDecimal(value));
+  set amount(value: BigInt) {
+    this.set("amount", Value.fromBigInt(value));
   }
 
-  get price(): BigDecimal {
+  get price(): BigInt {
     let value = this.get("price");
-    return value!.toBigDecimal();
+    return value!.toBigInt();
   }
 
-  set price(value: BigDecimal) {
-    this.set("price", Value.fromBigDecimal(value));
+  set price(value: BigInt) {
+    this.set("price", Value.fromBigInt(value));
   }
 
   get seller(): Bytes {
@@ -720,8 +720,8 @@ export class VerseDayData extends Entity {
     super();
     this.set("id", Value.fromString(id));
 
-    this.set("dailyVolumeETH", Value.fromBigDecimal(BigDecimal.zero()));
-    this.set("totalVolumeETH", Value.fromBigDecimal(BigDecimal.zero()));
+    this.set("dailyVolumeETH", Value.fromBigInt(BigInt.zero()));
+    this.set("totalVolumeETH", Value.fromBigInt(BigInt.zero()));
     this.set("txCount", Value.fromBigInt(BigInt.zero()));
   }
 
@@ -760,22 +760,22 @@ export class VerseDayData extends Entity {
     this.set("date", Value.fromI32(value));
   }
 
-  get dailyVolumeETH(): BigDecimal {
+  get dailyVolumeETH(): BigInt {
     let value = this.get("dailyVolumeETH");
-    return value!.toBigDecimal();
+    return value!.toBigInt();
   }
 
-  set dailyVolumeETH(value: BigDecimal) {
-    this.set("dailyVolumeETH", Value.fromBigDecimal(value));
+  set dailyVolumeETH(value: BigInt) {
+    this.set("dailyVolumeETH", Value.fromBigInt(value));
   }
 
-  get totalVolumeETH(): BigDecimal {
+  get totalVolumeETH(): BigInt {
     let value = this.get("totalVolumeETH");
-    return value!.toBigDecimal();
+    return value!.toBigInt();
   }
 
-  set totalVolumeETH(value: BigDecimal) {
-    this.set("totalVolumeETH", Value.fromBigDecimal(value));
+  set totalVolumeETH(value: BigInt) {
+    this.set("totalVolumeETH", Value.fromBigInt(value));
   }
 
   get txCount(): BigInt {
@@ -794,10 +794,10 @@ export class ExchangeHourData extends Entity {
     this.set("id", Value.fromString(id));
 
     this.set("exchange", Value.fromString(""));
-    this.set("tokenPrice", Value.fromBigDecimal(BigDecimal.zero()));
-    this.set("totalSupply", Value.fromBigDecimal(BigDecimal.zero()));
-    this.set("hourlyVolumeToken", Value.fromBigDecimal(BigDecimal.zero()));
-    this.set("hourlyVolumeETH", Value.fromBigDecimal(BigDecimal.zero()));
+    this.set("tokenPrice", Value.fromBigInt(BigInt.zero()));
+    this.set("totalSupply", Value.fromBigInt(BigInt.zero()));
+    this.set("hourlyVolumeToken", Value.fromBigInt(BigInt.zero()));
+    this.set("hourlyVolumeETH", Value.fromBigInt(BigInt.zero()));
     this.set("hourlyTxns", Value.fromBigInt(BigInt.zero()));
   }
 
@@ -847,40 +847,40 @@ export class ExchangeHourData extends Entity {
     this.set("exchange", Value.fromString(value));
   }
 
-  get tokenPrice(): BigDecimal {
+  get tokenPrice(): BigInt {
     let value = this.get("tokenPrice");
-    return value!.toBigDecimal();
+    return value!.toBigInt();
   }
 
-  set tokenPrice(value: BigDecimal) {
-    this.set("tokenPrice", Value.fromBigDecimal(value));
+  set tokenPrice(value: BigInt) {
+    this.set("tokenPrice", Value.fromBigInt(value));
   }
 
-  get totalSupply(): BigDecimal {
+  get totalSupply(): BigInt {
     let value = this.get("totalSupply");
-    return value!.toBigDecimal();
+    return value!.toBigInt();
   }
 
-  set totalSupply(value: BigDecimal) {
-    this.set("totalSupply", Value.fromBigDecimal(value));
+  set totalSupply(value: BigInt) {
+    this.set("totalSupply", Value.fromBigInt(value));
   }
 
-  get hourlyVolumeToken(): BigDecimal {
+  get hourlyVolumeToken(): BigInt {
     let value = this.get("hourlyVolumeToken");
-    return value!.toBigDecimal();
+    return value!.toBigInt();
   }
 
-  set hourlyVolumeToken(value: BigDecimal) {
-    this.set("hourlyVolumeToken", Value.fromBigDecimal(value));
+  set hourlyVolumeToken(value: BigInt) {
+    this.set("hourlyVolumeToken", Value.fromBigInt(value));
   }
 
-  get hourlyVolumeETH(): BigDecimal {
+  get hourlyVolumeETH(): BigInt {
     let value = this.get("hourlyVolumeETH");
-    return value!.toBigDecimal();
+    return value!.toBigInt();
   }
 
-  set hourlyVolumeETH(value: BigDecimal) {
-    this.set("hourlyVolumeETH", Value.fromBigDecimal(value));
+  set hourlyVolumeETH(value: BigInt) {
+    this.set("hourlyVolumeETH", Value.fromBigInt(value));
   }
 
   get hourlyTxns(): BigInt {
@@ -899,10 +899,10 @@ export class ExchangeDayData extends Entity {
     this.set("id", Value.fromString(id));
 
     this.set("exchange", Value.fromString(""));
-    this.set("tokenPrice", Value.fromBigDecimal(BigDecimal.zero()));
-    this.set("totalSupply", Value.fromBigDecimal(BigDecimal.zero()));
-    this.set("dailyVolumeToken", Value.fromBigDecimal(BigDecimal.zero()));
-    this.set("dailyVolumeETH", Value.fromBigDecimal(BigDecimal.zero()));
+    this.set("tokenPrice", Value.fromBigInt(BigInt.zero()));
+    this.set("totalSupply", Value.fromBigInt(BigInt.zero()));
+    this.set("dailyVolumeToken", Value.fromBigInt(BigInt.zero()));
+    this.set("dailyVolumeETH", Value.fromBigInt(BigInt.zero()));
     this.set("dailyTxns", Value.fromBigInt(BigInt.zero()));
   }
 
@@ -950,40 +950,40 @@ export class ExchangeDayData extends Entity {
     this.set("exchange", Value.fromString(value));
   }
 
-  get tokenPrice(): BigDecimal {
+  get tokenPrice(): BigInt {
     let value = this.get("tokenPrice");
-    return value!.toBigDecimal();
+    return value!.toBigInt();
   }
 
-  set tokenPrice(value: BigDecimal) {
-    this.set("tokenPrice", Value.fromBigDecimal(value));
+  set tokenPrice(value: BigInt) {
+    this.set("tokenPrice", Value.fromBigInt(value));
   }
 
-  get totalSupply(): BigDecimal {
+  get totalSupply(): BigInt {
     let value = this.get("totalSupply");
-    return value!.toBigDecimal();
+    return value!.toBigInt();
   }
 
-  set totalSupply(value: BigDecimal) {
-    this.set("totalSupply", Value.fromBigDecimal(value));
+  set totalSupply(value: BigInt) {
+    this.set("totalSupply", Value.fromBigInt(value));
   }
 
-  get dailyVolumeToken(): BigDecimal {
+  get dailyVolumeToken(): BigInt {
     let value = this.get("dailyVolumeToken");
-    return value!.toBigDecimal();
+    return value!.toBigInt();
   }
 
-  set dailyVolumeToken(value: BigDecimal) {
-    this.set("dailyVolumeToken", Value.fromBigDecimal(value));
+  set dailyVolumeToken(value: BigInt) {
+    this.set("dailyVolumeToken", Value.fromBigInt(value));
   }
 
-  get dailyVolumeETH(): BigDecimal {
+  get dailyVolumeETH(): BigInt {
     let value = this.get("dailyVolumeETH");
-    return value!.toBigDecimal();
+    return value!.toBigInt();
   }
 
-  set dailyVolumeETH(value: BigDecimal) {
-    this.set("dailyVolumeETH", Value.fromBigDecimal(value));
+  set dailyVolumeETH(value: BigInt) {
+    this.set("dailyVolumeETH", Value.fromBigInt(value));
   }
 
   get dailyTxns(): BigInt {

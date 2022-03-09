@@ -15,8 +15,8 @@ export function updateVerseDayData(event: ethereum.Event): VerseDayData {
     if (verseDayData === null) {
         verseDayData = new VerseDayData(dayID.toString())
         verseDayData.date = dayStartTimestamp
-        verseDayData.dailyVolumeETH = ZERO_BD
-        verseDayData.totalVolumeETH = ZERO_BD
+        verseDayData.dailyVolumeETH = ZERO_BI
+        verseDayData.totalVolumeETH = ZERO_BI
     }
 
     verseDayData.txCount = verse.txCount
@@ -40,8 +40,8 @@ export function updateExchangeHourData(event: ethereum.Event): ExchangeHourData 
         exchangeHourData = new ExchangeHourData(hourExchangeId)
         exchangeHourData.hourStartUnix = hourStartUnix
         exchangeHourData.exchange = event.address.toHexString()
-        exchangeHourData.hourlyVolumeETH = ZERO_BD
-        exchangeHourData.hourlyVolumeToken = ZERO_BD
+        exchangeHourData.hourlyVolumeETH = ZERO_BI
+        exchangeHourData.hourlyVolumeToken = ZERO_BI
         exchangeHourData.hourlyTxns = ZERO_BI
     }
     exchangeHourData.totalSupply = exchange.totalSupply
@@ -66,8 +66,8 @@ export function updateExchangeDayData(event: ethereum.Event): ExchangeDayData {
         exchangeDayData = new ExchangeDayData(dayExchangeId)
         exchangeDayData.date = dayStartTimestamp
         exchangeDayData.exchange = event.address.toHexString()
-        exchangeDayData.dailyVolumeETH = ZERO_BD
-        exchangeDayData.dailyVolumeToken = ZERO_BD
+        exchangeDayData.dailyVolumeETH = ZERO_BI
+        exchangeDayData.dailyVolumeToken = ZERO_BI
         exchangeDayData.dailyTxns = ZERO_BI
     }
 
