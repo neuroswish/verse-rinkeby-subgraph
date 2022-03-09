@@ -68,48 +68,28 @@ export function setUser(userAddress: Address): void {
   }
 }
 
-// export function updatePoolBalance(exchangeAddress: Address, newBalance: BigDecimal): void {
-//   let id = exchangeAddress.toHexString()
-//   let exchange = Exchange.load(id)
-//   if (exchange === null) {
-//     log.error('Exchange is null', [id])
-//     throw new Error("Exchange is null")
-//   }
-//   exchange.poolBalance = newBalance
-//   exchange.save()
-// }
-
-// export function updateTotalSupply(exchangeAddress: Address, newTotalSupply: BigDecimal): void {
-//   let id = exchangeAddress.toHexString()
-//   let exchange = Exchange.load(id)
-//   if (exchange === null) {
-//     log.error('Exchange is null', [id])
-//     throw new Error("Exchange is null")
-//   }
-//   exchange.totalSupply = newTotalSupply
-//   exchange.save()
-// }
-
-export function updateTokenPrice(exchangeAddress: Address, poolBalance: BigInt, reserveRatio: BigInt, totalSupply: BigInt): BigInt {
+export function updateTokenPrice(exchangeAddress: Address, poolBalance: BigInt, reserveRatio: BigInt, totalSupply: BigInt): void {
   let id = exchangeAddress.toHexString()
   let exchange = Exchange.load(id)
   if (exchange === null) {
     log.error('Exchange is null', [id])
     throw new Error("Exchange is null")
   }
-  exchange.tokenPrice = (poolBalance).div((reserveRatio.div(MAX_RATIO)).times(totalSupply))
+  const priceNumerator = (poolBalance.times(MAX_RATIO)).toString()
+  const priceDenominator = (reserveRatio.times(totalSupply)).toString()
+  
+  exchange.tokenPriceNumerator = priceNumerator
+  exchange.tokenPriceDenominator = priceDenominator
   exchange.save()
-  let price = exchange.tokenPrice
-  return price
 }
 
-export function updateMarketCap(exchangeAddress: Address, price: BigInt, totalSupply: BigInt): void {
-  let id = exchangeAddress.toHexString()
-  let exchange = Exchange.load(id)
-  if (exchange === null) {
-    log.error('Exchange is null', [id])
-    throw new Error("Exchange is null")
-  }
-  exchange.marketCap = price.times(totalSupply)
-  exchange.save()
-}
+// export function updateMarketCap(exchangeAddress: Address, price: BigInt, totalSupply: BigInt): void {
+//   let id = exchangeAddress.toHexString()
+//   let exchange = Exchange.load(id)
+//   if (exchange === null) {
+//     log.error('Exchange is null', [id])
+//     throw new Error("Exchange is null")
+//   }
+//   exchange.marketCap = price.times(totalSupply)
+//   exchange.save()
+// }

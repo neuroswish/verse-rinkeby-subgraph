@@ -4,7 +4,7 @@ import { Exchange as ExchangeTemplate } from '../../generated/templates'
 import { Cryptomedia as CryptomediaTemplate } from '../../generated/templates'
 
 import { PairCreated } from '../../generated/PairFactory/PairFactory'
-import { convertTokenToDecimal, PAIR_FACTORY_ADDRESS, ONE_BI, RESERVE_RATIO, updateMarketCap, updatePosition, ZERO_BD, ZERO_BI } from './helpers'
+import { convertTokenToDecimal, PAIR_FACTORY_ADDRESS, ONE_BI, RESERVE_RATIO, updatePosition, ZERO_BD, ZERO_BI } from './helpers'
 
 export function handlePairCreated(event: PairCreated): void {
   // load factory (create if first exchange)
@@ -27,8 +27,8 @@ export function handlePairCreated(event: PairCreated): void {
   exchange.poolBalance = ZERO_BI;
   exchange.totalSupply = ZERO_BI;
   exchange.reserveRatio = RESERVE_RATIO;
-  exchange.tokenPrice = ZERO_BI;
-  exchange.marketCap = ZERO_BI;
+  exchange.tokenPriceNumerator = '0';
+  exchange.tokenPriceDenominator = '0';
   exchange.txCount = ZERO_BI;
   exchange.volumeETH = ZERO_BI;
 

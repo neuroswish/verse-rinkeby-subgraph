@@ -25,7 +25,6 @@ import {
   BI_18,
   convertEthToDecimal,
   updateTokenPrice,
-  updateMarketCap,
   ONE_BI
 } from './helpers'
 
@@ -67,20 +66,14 @@ export function handleBuy(event: Buy): void {
   buy.price = price
   buy.buyer = buyer
   buy.save()
-  // push new buy event to exchange object buys list
-  //buys.push(buy.id)
 
   // update calculated and derived fields based on data pulled directly from contract
-  updatePosition(event.address, buyer, exchangeContract.balanceOf(buyer))
-  //updatePoolBalance(event.address, convertEthToDecimal(exchangeContract.poolBalance()))
-  //updateTotalSupply(event.address, convertTokenToDecimal(exchangeContract.totalSupply()))
-  //let poolBalance = convertEthToDecimal(exchangeContract.poolBalance())
+  // updatePosition(event.address, buyer, exchangeContract.balanceOf(buyer))
   let poolBalance = exchangeContract.poolBalance()
   let reserveRatio = exchangeContract.reserveRatio()
-  //let totalSupply = convertTokenToDecimal(exchangeContract.totalSupply())
   let totalSupply = exchangeContract.totalSupply()
-  let tokenPrice = updateTokenPrice(event.address, poolBalance, reserveRatio, totalSupply)
-  updateMarketCap(event.address, tokenPrice, totalSupply)
+  updateTokenPrice(event.address, poolBalance, reserveRatio, totalSupply)
+  //updateMarketCap(event.address, tokenPrice, totalSupply)
 
   // update hourly, daily, and global values
   // global verse
@@ -103,14 +96,14 @@ export function handleBuy(event: Buy): void {
   let exchangeDayData = updateExchangeDayData(event)
   exchangeDayData.dailyVolumeETH = exchangeDayData.dailyVolumeETH.plus(price)
   exchangeDayData.dailyVolumeToken = exchangeDayData.dailyVolumeToken.plus(amount)
-  exchangeDayData.tokenPrice = tokenPrice
+  exchangeDayData.tokenPriceNumerator = exchange.tokenPriceNumerator
+  exchangeDayData.tokenPriceDenominator = exchange.tokenPriceDenominator
   exchangeDayData.save()
 
   // hourly exchange
   let exchangeHourData = updateExchangeHourData(event)
   exchangeHourData.hourlyVolumeETH = exchangeHourData.hourlyVolumeETH.plus(price)
   exchangeHourData.hourlyVolumeToken = exchangeHourData.hourlyVolumeToken.plus(amount)
-  exchangeHourData.tokenPrice = tokenPrice
   exchangeHourData.save()
 }
 
@@ -159,8 +152,8 @@ export function handleSell(event: Sell): void {
   let poolBalance = exchangeContract.poolBalance()
   let reserveRatio = exchangeContract.reserveRatio()
   let totalSupply = exchangeContract.totalSupply()
-  let tokenPrice = updateTokenPrice(event.address, poolBalance, reserveRatio, totalSupply)
-  updateMarketCap(event.address, tokenPrice, totalSupply)
+  updateTokenPrice(event.address, poolBalance, reserveRatio, totalSupply)
+  //updateMarketCap(event.address, tokenPrice, totalSupply)
 
   // update hourly, daily, and global values
   // global verse
@@ -183,14 +176,16 @@ export function handleSell(event: Sell): void {
   let exchangeDayData = updateExchangeDayData(event)
   exchangeDayData.dailyVolumeETH = exchangeDayData.dailyVolumeETH.plus(price)
   exchangeDayData.dailyVolumeToken = exchangeDayData.dailyVolumeToken.plus(amount)
-  exchangeDayData.tokenPrice = tokenPrice
+  exchangeDayData.tokenPriceNumerator = exchange.tokenPriceNumerator
+  exchangeDayData.tokenPriceDenominator = exchange.tokenPriceDenominator
   exchangeDayData.save()
 
   // hourly cryptomedia
   let exchangeHourData = updateExchangeHourData(event)
   exchangeHourData.hourlyVolumeETH = exchangeHourData.hourlyVolumeETH.plus(price)
   exchangeHourData.hourlyVolumeToken = exchangeHourData.hourlyVolumeToken.plus(amount)
-  exchangeHourData.tokenPrice = tokenPrice
+  exchangeDayData.tokenPriceNumerator = exchange.tokenPriceNumerator
+  exchangeDayData.tokenPriceDenominator = exchange.tokenPriceDenominator
   exchangeHourData.save()
 }
 
