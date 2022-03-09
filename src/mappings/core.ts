@@ -57,11 +57,9 @@ export function handleBuy(event: Buy): void {
   let price = convertEthToDecimal(event.params.price)
 
   // get list of buys from saved exchange object
-  let buys = exchange.buys
+  //let buys = exchange.buys
   let buy = new BuyEvent(event.transaction.hash
-    .toHexString()
-    .concat('-')
-    .concat(BigInt.fromI32(buys.length).toString()))
+    .toHexString())
   buy.blockNumber = event.block.number
   buy.timestamp = event.block.timestamp
   buy.exchange = exchange.id
@@ -70,7 +68,7 @@ export function handleBuy(event: Buy): void {
   buy.buyer = buyer
   buy.save()
   // push new buy event to exchange object buys list
-  buys.push(buy.id)
+  //buys.push(buy.id)
 
   // update calculated and derived fields based on data pulled directly from contract
   updatePosition(event.address, buyer, convertTokenToDecimal(exchangeContract.balanceOf(buyer)))
@@ -139,11 +137,9 @@ export function handleSell(event: Sell): void {
   let price = convertEthToDecimal(event.params.eth)
 
   // get list of sells from saved exchange object
-  let sells = exchange.sells
+  //let sells = exchange.sells
   let sell = new SellEvent(event.transaction.hash
-    .toHexString()
-    .concat('-')
-    .concat(BigInt.fromI32(sells.length).toString()))
+    .toHexString())
   sell.blockNumber = event.block.number
   sell.timestamp = event.block.timestamp
   sell.exchange = exchange.id
@@ -152,7 +148,7 @@ export function handleSell(event: Sell): void {
   sell.seller = seller
   sell.save()
   // push new sell event to exchange object sells list
-  sells.push(sell.id)
+  //sells.push(sell.id)
 
   // update calculated and derived fields based on data pulled directly from contract
   updatePosition(event.address, seller, convertTokenToDecimal(exchangeContract.balanceOf(seller)))
@@ -216,18 +212,16 @@ export function handleRedeem(event: Redeem): void {
   let exchangeContract = ExchangeContract.bind(event.address)
 
   // get list of sells from saved exchange object
-  let redemptions = exchange.redemptions
+  //let redemptions = exchange.redemptions
   let redemption = new RedeemEvent(event.transaction.hash
-    .toHexString()
-    .concat('-')
-    .concat(BigInt.fromI32(redemptions.length).toString()))
+    .toHexString())
   redemption.blockNumber = event.block.number
   redemption.timestamp = event.block.timestamp
   redemption.exchange = exchange.id
   redemption.redeemer = redeemer
   redemption.save()
   // push new sell event to exchange object sells list
-  redemptions.push(redemption.id)
+  //redemptions.push(redemption.id)
 
   // update calculated and derived fields based on data pulled directly from contract
   updatePosition(event.address, redeemer, convertTokenToDecimal(exchangeContract.balanceOf(redeemer)))
