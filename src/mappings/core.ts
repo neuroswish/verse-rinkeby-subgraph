@@ -2,7 +2,6 @@ import { log, BigInt, BigDecimal, store, Address } from '@graphprotocol/graph-ts
 import {
   PairFactory,
   Exchange,
-  Cryptomedia,
   User,
   Position,
   Buy as BuyEvent,
@@ -11,7 +10,6 @@ import {
 } from "../../generated/schema"
 
 import { Buy, Sell, Redeem, Exchange as ExchangeContract } from '../../generated/templates/Exchange/Exchange'
-import { Cryptomedia as CryptomediaContract } from '../../generated/templates/Cryptomedia/Cryptomedia'
 import { updateExchangeHourData, updateExchangeDayData, updateVerseDayData } from './dayUpdates'
 import {
   ADDRESS_ZERO,
@@ -208,18 +206,14 @@ export function handleRedeem(event: Redeem): void {
   // get exchange contract from chain
   let exchangeContract = ExchangeContract.bind(event.address)
 
-  // get list of sells from saved exchange object
-  //let redemptions = exchange.redemptions
+  // get list of redemptions from saved exchange object
   let redemption = new RedeemEvent(event.transaction.hash
     .toHexString())
   redemption.blockNumber = event.block.number
   redemption.timestamp = event.block.timestamp
   redemption.exchange = exchange.id
-  redemption.redeemer = redeemer
+  redemption.redeemer = redeemer.toHexString()
   redemption.save()
-  // push new sell event to exchange object sells list
-  //redemptions.push(redemption.id)
-
   // update calculated and derived fields based on data pulled directly from contract
   updatePosition(event.address, redeemer, exchangeContract.balanceOf(redeemer))
 }

@@ -40,17 +40,6 @@ type Exchange @entity {
   exchangeDayData: [ExchangeDayData!]! @derivedFrom(field: "exchange")
 }
 
-type Cryptomedia @entity {
-  # address
-  id: ID!
-
-  # mirrored from smart contract
-  name: String!
-  symbol: String!
-  deployer: Bytes!
-  creator: Bytes!
-}
-
 # interactions
 
 type User @entity {
@@ -73,7 +62,7 @@ type Redeem @entity {
   blockNumber: BigInt!
   timestamp: BigInt!
   exchange: Exchange!
-  redeemer: Bytes!
+  redeemer: String!
 }
 
 type Buy @entity {

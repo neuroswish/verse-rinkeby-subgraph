@@ -85,16 +85,18 @@ export class PairFactory extends ethereum.SmartContract {
     _name: string,
     _symbol: string,
     _reserveRatio: BigInt,
+    _slopeInit: BigInt,
     _transactionShare: BigInt,
     _baseURI: string
   ): PairFactory__createResult {
     let result = super.call(
       "create",
-      "create(string,string,uint256,uint256,string):(address,address)",
+      "create(string,string,uint256,uint256,uint256,string):(address,address)",
       [
         ethereum.Value.fromString(_name),
         ethereum.Value.fromString(_symbol),
         ethereum.Value.fromUnsignedBigInt(_reserveRatio),
+        ethereum.Value.fromUnsignedBigInt(_slopeInit),
         ethereum.Value.fromUnsignedBigInt(_transactionShare),
         ethereum.Value.fromString(_baseURI)
       ]
@@ -110,16 +112,18 @@ export class PairFactory extends ethereum.SmartContract {
     _name: string,
     _symbol: string,
     _reserveRatio: BigInt,
+    _slopeInit: BigInt,
     _transactionShare: BigInt,
     _baseURI: string
   ): ethereum.CallResult<PairFactory__createResult> {
     let result = super.tryCall(
       "create",
-      "create(string,string,uint256,uint256,string):(address,address)",
+      "create(string,string,uint256,uint256,uint256,string):(address,address)",
       [
         ethereum.Value.fromString(_name),
         ethereum.Value.fromString(_symbol),
         ethereum.Value.fromUnsignedBigInt(_reserveRatio),
+        ethereum.Value.fromUnsignedBigInt(_slopeInit),
         ethereum.Value.fromUnsignedBigInt(_transactionShare),
         ethereum.Value.fromString(_baseURI)
       ]
@@ -235,12 +239,16 @@ export class CreateCall__Inputs {
     return this._call.inputValues[2].value.toBigInt();
   }
 
-  get _transactionShare(): BigInt {
+  get _slopeInit(): BigInt {
     return this._call.inputValues[3].value.toBigInt();
   }
 
+  get _transactionShare(): BigInt {
+    return this._call.inputValues[4].value.toBigInt();
+  }
+
   get _baseURI(): string {
-    return this._call.inputValues[4].value.toString();
+    return this._call.inputValues[5].value.toString();
   }
 }
 

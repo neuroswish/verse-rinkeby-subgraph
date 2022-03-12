@@ -1,5 +1,5 @@
 import { log, BigInt, BigDecimal, Address } from '@graphprotocol/graph-ts'
-import { PairFactory, Exchange, Cryptomedia, User, Position, Buy, Sell } from "../../generated/schema"
+import { PairFactory, Exchange, User, Position, Buy, Sell } from "../../generated/schema"
 import { PairFactory as PairFactoryContract } from '../../generated/templates/Exchange/PairFactory'
 
 export const ADDRESS_ZERO = '0x0000000000000000000000000000000000000000'
@@ -83,13 +83,3 @@ export function updateTokenPrice(exchangeAddress: Address, poolBalance: BigInt, 
   exchange.save()
 }
 
-// export function updateMarketCap(exchangeAddress: Address, price: BigInt, totalSupply: BigInt): void {
-//   let id = exchangeAddress.toHexString()
-//   let exchange = Exchange.load(id)
-//   if (exchange === null) {
-//     log.error('Exchange is null', [id])
-//     throw new Error("Exchange is null")
-//   }
-//   exchange.marketCap = price.times(totalSupply)
-//   exchange.save()
-// }

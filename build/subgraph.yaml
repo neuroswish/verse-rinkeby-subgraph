@@ -7,9 +7,9 @@ dataSources:
     name: PairFactory
     network: rinkeby
     source:
-      address: "0x7A4aA32A375aCbE448cD40bEc04F5F942B2A5956"
+      address: "0xa40B81A3187a0308478877B737b7DCCa27eC4032"
       abi: PairFactory
-      startBlock: 10285417
+      startBlock: 10304738
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -48,23 +48,3 @@ templates:
           handler: handleSell
         - event: Redeem(indexed address)
           handler: handleRedeem
-  - kind: ethereum/contract
-    name: Cryptomedia
-    network: rinkeby
-    source:
-      abi: Cryptomedia
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.5
-      language: wasm/assemblyscript
-      file: templates/Exchange/Exchange.wasm
-      entities:
-        - Cryptomedia
-      abis:
-        - name: Cryptomedia
-          file: Cryptomedia/abis/Cryptomedia.json
-        - name: PairFactory
-          file: Cryptomedia/abis/PairFactory.json
-      eventHandlers:
-        - event: Transfer(indexed address,indexed address,indexed uint256)
-          handler: handleTransfer

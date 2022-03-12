@@ -1,5 +1,5 @@
 import { log, BigDecimal, BigInt, ethereum } from "@graphprotocol/graph-ts";
-import { ExchangeHourData, ExchangeDayData, VerseDayData, PairFactory, Exchange, Cryptomedia } from "../../generated/schema";
+import { ExchangeHourData, ExchangeDayData, VerseDayData, PairFactory, Exchange } from "../../generated/schema";
 import { PAIR_FACTORY_ADDRESS, ONE_BI, ZERO_BD, ZERO_BI } from "./helpers";
 
 export function updateVerseDayData(event: ethereum.Event): VerseDayData {

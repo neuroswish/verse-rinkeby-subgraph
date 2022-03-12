@@ -342,6 +342,11 @@
       },
       {
         "internalType": "uint256",
+        "name": "_slopeInit",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
         "name": "_transactionShare",
         "type": "uint256"
       },
@@ -485,6 +490,19 @@
     "name": "sell",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "slopeInit",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {

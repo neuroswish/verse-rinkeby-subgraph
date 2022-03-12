@@ -79,6 +79,11 @@
       },
       {
         "internalType": "uint256",
+        "name": "_slopeInit",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
         "name": "_transactionShare",
         "type": "uint256"
       },

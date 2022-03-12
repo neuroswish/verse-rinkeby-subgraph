@@ -401,6 +401,21 @@ export class Exchange extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
+  slopeInit(): BigInt {
+    let result = super.call("slopeInit", "slopeInit():(uint256)", []);
+
+    return result[0].toBigInt();
+  }
+
+  try_slopeInit(): ethereum.CallResult<BigInt> {
+    let result = super.tryCall("slopeInit", "slopeInit():(uint256)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
   symbol(): string {
     let result = super.call("symbol", "symbol():(string)", []);
 
@@ -642,16 +657,20 @@ export class InitializeCall__Inputs {
     return this._call.inputValues[2].value.toBigInt();
   }
 
-  get _transactionShare(): BigInt {
+  get _slopeInit(): BigInt {
     return this._call.inputValues[3].value.toBigInt();
   }
 
+  get _transactionShare(): BigInt {
+    return this._call.inputValues[4].value.toBigInt();
+  }
+
   get _cryptomedia(): Address {
-    return this._call.inputValues[4].value.toAddress();
+    return this._call.inputValues[5].value.toAddress();
   }
 
   get _creator(): Address {
-    return this._call.inputValues[5].value.toAddress();
+    return this._call.inputValues[6].value.toAddress();
   }
 }
 
