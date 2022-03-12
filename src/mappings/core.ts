@@ -212,7 +212,7 @@ export function handleRedeem(event: Redeem): void {
   redemption.blockNumber = event.block.number
   redemption.timestamp = event.block.timestamp
   redemption.exchange = exchange.id
-  redemption.redeemer = redeemer.toHexString()
+  redemption.redeemer = redeemer
   redemption.save()
   // update calculated and derived fields based on data pulled directly from contract
   updatePosition(event.address, redeemer, exchangeContract.balanceOf(redeemer))

@@ -387,7 +387,7 @@ export class Redeem extends Entity {
     this.set("blockNumber", Value.fromBigInt(BigInt.zero()));
     this.set("timestamp", Value.fromBigInt(BigInt.zero()));
     this.set("exchange", Value.fromString(""));
-    this.set("redeemer", Value.fromString(""));
+    this.set("redeemer", Value.fromBytes(Bytes.empty()));
   }
 
   save(): void {
@@ -443,13 +443,13 @@ export class Redeem extends Entity {
     this.set("exchange", Value.fromString(value));
   }
 
-  get redeemer(): string {
+  get redeemer(): Bytes {
     let value = this.get("redeemer");
-    return value!.toString();
+    return value!.toBytes();
   }
 
-  set redeemer(value: string) {
-    this.set("redeemer", Value.fromString(value));
+  set redeemer(value: Bytes) {
+    this.set("redeemer", Value.fromBytes(value));
   }
 }
 

@@ -46,17 +46,6 @@ export function updatePosition(exchangeAddress: Address, user: Address, amount: 
     position.balance = amount
     position.save()
   }
-  if (position === null) {
-    log.error('Position is null', [id])
-    throw new Error("Position is null")
-  }
-  let exchange = Exchange.load(exchangeAddress.toHexString())
-  if (exchange === null) {
-    log.error('Position is null', [id])
-    throw new Error("Position is null")
-  }
-  exchange.positions.push(position.id)
-  exchange.save()
 }
 
 

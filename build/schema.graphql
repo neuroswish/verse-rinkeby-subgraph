@@ -48,7 +48,7 @@ type User @entity {
 }
 
 type Position @entity {
-  # id will be combination of user - exchange
+  # id will be combination of exchange - user
   id: ID!
   user: User!
   exchange: Exchange!
@@ -62,7 +62,7 @@ type Redeem @entity {
   blockNumber: BigInt!
   timestamp: BigInt!
   exchange: Exchange!
-  redeemer: String!
+  redeemer: Bytes!
 }
 
 type Buy @entity {
