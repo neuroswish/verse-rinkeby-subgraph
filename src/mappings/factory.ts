@@ -26,8 +26,8 @@ export function handlePairCreated(event: PairCreated): void {
   exchange.poolBalance = ZERO_BI;
   exchange.totalSupply = ZERO_BI;
   exchange.reserveRatio = RESERVE_RATIO;
-  exchange.tokenPriceNumerator = '0';
-  exchange.tokenPriceDenominator = '0';
+  exchange.tokenPriceNumerator = ZERO_BI;
+  exchange.tokenPriceDenominator = ZERO_BI;
   exchange.txCount = ZERO_BI;
   exchange.volumeETH = ZERO_BI;
 

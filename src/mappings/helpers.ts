@@ -46,8 +46,8 @@ export function updatePosition(exchangeAddress: Address, user: Address, amount: 
     position.balance = amount
     position.save()
   }
-}
 
+}
 
 export function setUser(userAddress: Address): void {
   let user = User.load(userAddress.toHexString())
@@ -57,18 +57,40 @@ export function setUser(userAddress: Address): void {
   }
 }
 
-export function updateTokenPrice(exchangeAddress: Address, poolBalance: BigInt, reserveRatio: BigInt, totalSupply: BigInt): void {
+export function updatePoolBalance(exchangeAddress: Address, newBalance: BigInt): void {
   let id = exchangeAddress.toHexString()
   let exchange = Exchange.load(id)
   if (exchange === null) {
     log.error('Exchange is null', [id])
     throw new Error("Exchange is null")
   }
-  const priceNumerator = (poolBalance.times(MAX_RATIO)).toString()
-  const priceDenominator = (reserveRatio.times(totalSupply)).toString()
-  
-  exchange.tokenPriceNumerator = priceNumerator
-  exchange.tokenPriceDenominator = priceDenominator
+  exchange.poolBalance = newBalance
   exchange.save()
 }
+
+export function updateTotalSupply(exchangeAddress: Address, newTotalSupply: BigInt): void {
+  let id = exchangeAddress.toHexString()
+  let exchange = Exchange.load(id)
+  if (exchange === null) {
+    log.error('Exchange is null', [id])
+    throw new Error("Exchange is null")
+  }
+  exchange.totalSupply = newTotalSupply
+  exchange.save()
+}
+
+// export function updateTokenPrice(exchangeAddress: Address, poolBalance: BigInt, reserveRatio: BigInt, totalSupply: BigInt): void {
+//   let id = exchangeAddress.toHexString()
+//   let exchange = Exchange.load(id)
+//   if (exchange === null) {
+//     log.error('Exchange is null', [id])
+//     throw new Error("Exchange is null")
+//   }
+//   const priceNumerator = (poolBalance.times(MAX_RATIO)).toString()
+//   const priceDenominator = (reserveRatio.times(totalSupply)).toString()
+  
+//   exchange.tokenPriceNumerator = priceNumerator
+//   exchange.tokenPriceDenominator = priceDenominator
+//   exchange.save()
+// }
 

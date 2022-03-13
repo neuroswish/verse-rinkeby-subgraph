@@ -87,8 +87,8 @@ export class Exchange extends Entity {
     this.set("poolBalance", Value.fromBigInt(BigInt.zero()));
     this.set("totalSupply", Value.fromBigInt(BigInt.zero()));
     this.set("reserveRatio", Value.fromBigInt(BigInt.zero()));
-    this.set("tokenPriceNumerator", Value.fromString(""));
-    this.set("tokenPriceDenominator", Value.fromString(""));
+    this.set("tokenPriceNumerator", Value.fromBigInt(BigInt.zero()));
+    this.set("tokenPriceDenominator", Value.fromBigInt(BigInt.zero()));
     this.set("volumeETH", Value.fromBigInt(BigInt.zero()));
     this.set("txCount", Value.fromBigInt(BigInt.zero()));
   }
@@ -182,22 +182,22 @@ export class Exchange extends Entity {
     this.set("reserveRatio", Value.fromBigInt(value));
   }
 
-  get tokenPriceNumerator(): string {
+  get tokenPriceNumerator(): BigInt {
     let value = this.get("tokenPriceNumerator");
-    return value!.toString();
+    return value!.toBigInt();
   }
 
-  set tokenPriceNumerator(value: string) {
-    this.set("tokenPriceNumerator", Value.fromString(value));
+  set tokenPriceNumerator(value: BigInt) {
+    this.set("tokenPriceNumerator", Value.fromBigInt(value));
   }
 
-  get tokenPriceDenominator(): string {
+  get tokenPriceDenominator(): BigInt {
     let value = this.get("tokenPriceDenominator");
-    return value!.toString();
+    return value!.toBigInt();
   }
 
-  set tokenPriceDenominator(value: string) {
-    this.set("tokenPriceDenominator", Value.fromString(value));
+  set tokenPriceDenominator(value: BigInt) {
+    this.set("tokenPriceDenominator", Value.fromBigInt(value));
   }
 
   get volumeETH(): BigInt {
@@ -720,8 +720,8 @@ export class ExchangeHourData extends Entity {
     this.set("id", Value.fromString(id));
 
     this.set("exchange", Value.fromString(""));
-    this.set("tokenPriceNumerator", Value.fromString(""));
-    this.set("tokenPriceDenominator", Value.fromString(""));
+    this.set("tokenPriceNumerator", Value.fromBigInt(BigInt.zero()));
+    this.set("tokenPriceDenominator", Value.fromBigInt(BigInt.zero()));
     this.set("totalSupply", Value.fromBigInt(BigInt.zero()));
     this.set("hourlyVolumeToken", Value.fromBigInt(BigInt.zero()));
     this.set("hourlyVolumeETH", Value.fromBigInt(BigInt.zero()));
@@ -774,22 +774,22 @@ export class ExchangeHourData extends Entity {
     this.set("exchange", Value.fromString(value));
   }
 
-  get tokenPriceNumerator(): string {
+  get tokenPriceNumerator(): BigInt {
     let value = this.get("tokenPriceNumerator");
-    return value!.toString();
+    return value!.toBigInt();
   }
 
-  set tokenPriceNumerator(value: string) {
-    this.set("tokenPriceNumerator", Value.fromString(value));
+  set tokenPriceNumerator(value: BigInt) {
+    this.set("tokenPriceNumerator", Value.fromBigInt(value));
   }
 
-  get tokenPriceDenominator(): string {
+  get tokenPriceDenominator(): BigInt {
     let value = this.get("tokenPriceDenominator");
-    return value!.toString();
+    return value!.toBigInt();
   }
 
-  set tokenPriceDenominator(value: string) {
-    this.set("tokenPriceDenominator", Value.fromString(value));
+  set tokenPriceDenominator(value: BigInt) {
+    this.set("tokenPriceDenominator", Value.fromBigInt(value));
   }
 
   get totalSupply(): BigInt {
@@ -835,8 +835,8 @@ export class ExchangeDayData extends Entity {
     this.set("id", Value.fromString(id));
 
     this.set("exchange", Value.fromString(""));
-    this.set("tokenPriceNumerator", Value.fromString(""));
-    this.set("tokenPriceDenominator", Value.fromString(""));
+    this.set("tokenPriceNumerator", Value.fromBigInt(BigInt.zero()));
+    this.set("tokenPriceDenominator", Value.fromBigInt(BigInt.zero()));
     this.set("totalSupply", Value.fromBigInt(BigInt.zero()));
     this.set("dailyVolumeToken", Value.fromBigInt(BigInt.zero()));
     this.set("dailyVolumeETH", Value.fromBigInt(BigInt.zero()));
@@ -887,22 +887,22 @@ export class ExchangeDayData extends Entity {
     this.set("exchange", Value.fromString(value));
   }
 
-  get tokenPriceNumerator(): string {
+  get tokenPriceNumerator(): BigInt {
     let value = this.get("tokenPriceNumerator");
-    return value!.toString();
+    return value!.toBigInt();
   }
 
-  set tokenPriceNumerator(value: string) {
-    this.set("tokenPriceNumerator", Value.fromString(value));
+  set tokenPriceNumerator(value: BigInt) {
+    this.set("tokenPriceNumerator", Value.fromBigInt(value));
   }
 
-  get tokenPriceDenominator(): string {
+  get tokenPriceDenominator(): BigInt {
     let value = this.get("tokenPriceDenominator");
-    return value!.toString();
+    return value!.toBigInt();
   }
 
-  set tokenPriceDenominator(value: string) {
-    this.set("tokenPriceDenominator", Value.fromString(value));
+  set tokenPriceDenominator(value: BigInt) {
+    this.set("tokenPriceDenominator", Value.fromBigInt(value));
   }
 
   get totalSupply(): BigInt {

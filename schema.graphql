@@ -24,8 +24,8 @@ type Exchange @entity {
   reserveRatio: BigInt!
 
   # token price
-  tokenPriceNumerator: String!
-  tokenPriceDenominator: String!
+  tokenPriceNumerator: BigInt!
+  tokenPriceDenominator: BigInt!
 
   # lifetime volume stats
   volumeETH: BigInt!
@@ -103,8 +103,8 @@ type ExchangeHourData @entity {
   exchange: Exchange!
 
   # price stats
-  tokenPriceNumerator: String!
-  tokenPriceDenominator: String!
+  tokenPriceNumerator: BigInt!
+  tokenPriceDenominator: BigInt!
   totalSupply: BigInt!
 
   # volume stats
@@ -119,8 +119,8 @@ type ExchangeDayData @entity {
   exchange: Exchange!
 
   # price stats
-  tokenPriceNumerator: String!
-  tokenPriceDenominator: String!
+  tokenPriceNumerator: BigInt!
+  tokenPriceDenominator: BigInt!
   totalSupply: BigInt!
 
   # volume stats

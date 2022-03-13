@@ -22,8 +22,9 @@ import {
   convertTokenToDecimal,
   BI_18,
   convertEthToDecimal,
-  updateTokenPrice,
-  ONE_BI
+  ONE_BI,
+  updatePoolBalance,
+  updateTotalSupply
 } from './helpers'
 
 // buy events
@@ -47,10 +48,8 @@ export function handleBuy(event: Buy): void {
   let exchangeContract = ExchangeContract.bind(event.address)
 
   // get amount of tokens being bought
-  //let amount = convertTokenToDecimal(event.params.tokens)
   let amount = event.params.tokens
   // get price of tokens bought
-  //let price = convertEthToDecimal(event.params.price)
   let price = event.params.price
 
   // get list of buys from saved exchange object
@@ -66,12 +65,17 @@ export function handleBuy(event: Buy): void {
   buy.save()
 
   // update calculated and derived fields based on data pulled directly from contract
-  // updatePosition(event.address, buyer, exchangeContract.balanceOf(buyer))
-  let poolBalance = exchangeContract.poolBalance()
+  let poolBalance = event.params.poolBalance
   let reserveRatio = exchangeContract.reserveRatio()
-  let totalSupply = exchangeContract.totalSupply()
-  updateTokenPrice(event.address, poolBalance, reserveRatio, totalSupply)
-  //updateMarketCap(event.address, tokenPrice, totalSupply)
+  let totalSupply = event.params.totalSupply
+  exchange.poolBalance = poolBalance
+  exchange.totalSupply = totalSupply
+  exchange.tokenPriceNumerator = (exchange.poolBalance).times(MAX_RATIO)
+  exchange.tokenPriceDenominator = (exchange.totalSupply).times(exchange.reserveRatio)
+  exchange.save()
+  // updateTokenPrice(event.address, poolBalance, reserveRatio, totalSupply)
+  // updatePoolBalance(event.address, poolBalance)
+  // updateTotalSupply(event.address, totalSupply)
 
   // update hourly, daily, and global values
   // global verse
@@ -141,17 +145,16 @@ export function handleSell(event: Sell): void {
   sell.seller = seller
   sell.save()
   // push new sell event to exchange object sells list
-  //sells.push(sell.id)
-
   // update calculated and derived fields based on data pulled directly from contract
   updatePosition(event.address, seller, exchangeContract.balanceOf(seller))
-  // updatePoolBalance(event.address, convertEthToDecimal(exchangeContract.poolBalance()))
-  // updateTotalSupply(event.address, convertTokenToDecimal(exchangeContract.totalSupply()))
-  let poolBalance = exchangeContract.poolBalance()
+  
+  let poolBalance = event.params.poolBalance
   let reserveRatio = exchangeContract.reserveRatio()
-  let totalSupply = exchangeContract.totalSupply()
-  updateTokenPrice(event.address, poolBalance, reserveRatio, totalSupply)
-  //updateMarketCap(event.address, tokenPrice, totalSupply)
+  let totalSupply = event.params.totalSupply
+  exchange.poolBalance = poolBalance
+  exchange.totalSupply = totalSupply
+  exchange.tokenPriceNumerator = (exchange.poolBalance).times(MAX_RATIO)
+  exchange.tokenPriceDenominator = (exchange.totalSupply).times(exchange.reserveRatio)
 
   // update hourly, daily, and global values
   // global verse
