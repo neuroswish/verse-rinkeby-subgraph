@@ -1,6 +1,6 @@
 import { log, BigDecimal, BigInt, ethereum } from "@graphprotocol/graph-ts";
 import { ExchangeHourData, ExchangeDayData, VerseDayData, PairFactory, Exchange } from "../../generated/schema";
-import { PAIR_FACTORY_ADDRESS, ONE_BI, ZERO_BD, ZERO_BI } from "./helpers";
+import { PAIR_FACTORY_ADDRESS, ONE_BI, ZERO_BD, ZERO_BI, MAX_RATIO } from "./helpers";
 
 export function updateVerseDayData(event: ethereum.Event): VerseDayData {
     let verse = PairFactory.load(PAIR_FACTORY_ADDRESS)
@@ -45,6 +45,11 @@ export function updateExchangeHourData(event: ethereum.Event): ExchangeHourData 
         exchangeHourData.hourlyTxns = ZERO_BI
     }
     exchangeHourData.totalSupply = exchange.totalSupply
+    let poolBalance = exchange.poolBalance
+    let totalSupply = exchange.totalSupply
+    let reserveRatio = exchange.reserveRatio
+    exchangeHourData.tokenPriceNumerator = (poolBalance).times(MAX_RATIO)
+    exchangeHourData.tokenPriceDenominator = (totalSupply).times(reserveRatio)
     exchangeHourData.hourlyTxns = exchangeHourData.hourlyTxns.plus(ONE_BI)
     exchangeHourData.save()
 
@@ -72,7 +77,13 @@ export function updateExchangeDayData(event: ethereum.Event): ExchangeDayData {
     }
 
     exchangeDayData.totalSupply = exchange.totalSupply
+    let poolBalance = exchange.poolBalance
+    let totalSupply = exchange.totalSupply
+    let reserveRatio = exchange.reserveRatio
+    exchangeDayData.tokenPriceNumerator = (poolBalance).times(MAX_RATIO)
+    exchangeDayData.tokenPriceDenominator = (totalSupply).times(reserveRatio)
     exchangeDayData.dailyTxns = exchangeDayData.dailyTxns.plus(ONE_BI)
+    exchangeDayData.save()
     exchangeDayData.save()
 
     return exchangeDayData as ExchangeDayData

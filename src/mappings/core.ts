@@ -53,7 +53,6 @@ export function handleBuy(event: Buy): void {
   let price = event.params.price
 
   // get list of buys from saved exchange object
-  //let buys = exchange.buys
   let buy = new BuyEvent(event.transaction.hash
     .toHexString())
   buy.blockNumber = event.block.number
@@ -73,9 +72,6 @@ export function handleBuy(event: Buy): void {
   exchange.tokenPriceNumerator = (exchange.poolBalance).times(MAX_RATIO)
   exchange.tokenPriceDenominator = (exchange.totalSupply).times(exchange.reserveRatio)
   exchange.save()
-  // updateTokenPrice(event.address, poolBalance, reserveRatio, totalSupply)
-  // updatePoolBalance(event.address, poolBalance)
-  // updateTotalSupply(event.address, totalSupply)
 
   // update hourly, daily, and global values
   // global verse
